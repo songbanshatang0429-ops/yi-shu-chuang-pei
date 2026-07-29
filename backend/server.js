@@ -26,7 +26,7 @@ if (!fs.existsSync(messagesFilePath)) {
   fs.writeFileSync(messagesFilePath, '[]', 'utf8');
 }
 
-// 4. 邮件配置（QQ邮箱）
+// 4. 邮件配置
 const transporter = nodemailer.createTransport({
   host: 'smtp.qq.com',
   port: 587,
@@ -39,12 +39,12 @@ const transporter = nodemailer.createTransport({
 
 const RECEIVE_EMAIL = '2263571470@qq.com';
 
-// 5. 核心表单提交处理逻辑（同时兼容 /api/message 和 /api/send-form）
-const handleFormSubmit = async (req, res) => {
+// 5. 核心表单提交处理逻辑（兼容 /api/message 和 /api/send-form）
+const handleFormSubmit = (req, res) => {
   try {
     const { name, phone, demand } = req.body;
     
-    // 保存到本地 JSON 文件供后台读取
+    // 步骤 A：立即保存到本地 JSON 文件供后台读取
     let messages = [];
     try {
       const fileData = fs.readFileSync(messagesFilePath, 'utf8');
@@ -60,23 +60,22 @@ const handleFormSubmit = async (req, res) => {
     });
     fs.writeFileSync(messagesFilePath, JSON.stringify(messages, null, 2), 'utf8');
 
-    // 尝试发送邮件（用 try 包裹，防止 Render 免费版屏蔽 SMTP 端口导致整个提交崩溃）
-    try {
-      const mailOptions = {
-        from: `"易数创培云官网" <2263571470@qq.com>`,
-        to: RECEIVE_EMAIL,
-        subject: '官网新合作对接需求',
-        text: `
+    // 步骤 B：后台异步发邮件（绝对不加 await，防止被云平台端口拦截导致前端卡死）
+    const mailOptions = {
+      from: `"易数创培云官网" <2263571470@qq.com>`,
+      to: RECEIVE_EMAIL,
+      subject: '官网新合作对接需求',
+      text: `
 客户称呼/公司：${name}
 联系电话：${phone}
 需求描述：${demand}
-        `
-      };
-      await transporter.sendMail(mailOptions);
-    } catch (mailErr) {
-      console.log('提示: 邮件发送失败（Render云平台限制了SMTP端口），但数据已成功存入本地后台:', mailErr.message);
-    }
+      `
+    };
+    transporter.sendMail(mailOptions).catch(err => {
+      console.log('提示: 邮件发送被云平台拦截（正常现象），数据已成功存入后台:', err.message);
+    });
 
+    // 步骤 C：秒回前端成功响应
     res.json({ success: true, message: '提交成功！我们的专家团队将在24小时内与您联系' });
   } catch (err) {
     console.error('表单处理出错:', err);
@@ -84,7 +83,7 @@ const handleFormSubmit = async (req, res) => {
   }
 };
 
-// 绑定两个常见的表单提交路径，避免前端路径不一致
+// 绑定两个常见的表单提交路径
 app.post('/api/message', handleFormSubmit);
 app.post('/api/send-form', handleFormSubmit);
 
