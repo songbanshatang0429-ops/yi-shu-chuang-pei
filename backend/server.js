@@ -39,11 +39,12 @@ const transporter = nodemailer.createTransport({
 
 const RECEIVE_EMAIL = '2263571470@qq.com';
 
-// 5. 表单提交接口（同时保存到本地 JSON 文件供后台读取）
-app.post('/api/send-form', async (req, res) => {
+// 5. 核心表单提交处理逻辑（同时兼容 /api/message 和 /api/send-form）
+const handleFormSubmit = async (req, res) => {
   try {
     const { name, phone, demand } = req.body;
     
+    // 保存到本地 JSON 文件供后台读取
     let messages = [];
     try {
       const fileData = fs.readFileSync(messagesFilePath, 'utf8');
@@ -59,23 +60,33 @@ app.post('/api/send-form', async (req, res) => {
     });
     fs.writeFileSync(messagesFilePath, JSON.stringify(messages, null, 2), 'utf8');
 
-    const mailOptions = {
-      from: `"易数创培云官网" <2263571470@qq.com>`,
-      to: RECEIVE_EMAIL,
-      subject: '官网新合作对接需求',
-      text: `
+    // 尝试发送邮件（用 try 包裹，防止 Render 免费版屏蔽 SMTP 端口导致整个提交崩溃）
+    try {
+      const mailOptions = {
+        from: `"易数创培云官网" <2263571470@qq.com>`,
+        to: RECEIVE_EMAIL,
+        subject: '官网新合作对接需求',
+        text: `
 客户称呼/公司：${name}
 联系电话：${phone}
 需求描述：${demand}
-      `
-    };
-    await transporter.sendMail(mailOptions);
-    res.json({ success: true, msg: '提交成功' });
+        `
+      };
+      await transporter.sendMail(mailOptions);
+    } catch (mailErr) {
+      console.log('提示: 邮件发送失败（Render云平台限制了SMTP端口），但数据已成功存入本地后台:', mailErr.message);
+    }
+
+    res.json({ success: true, message: '提交成功！我们的专家团队将在24小时内与您联系' });
   } catch (err) {
-    console.error('发送邮件失败:', err);
-    res.json({ success: false, msg: '提交失败，请稍后重试' });
+    console.error('表单处理出错:', err);
+    res.json({ success: false, error: '提交失败，请稍后重试' });
   }
-});
+};
+
+// 绑定两个常见的表单提交路径，避免前端路径不一致
+app.post('/api/message', handleFormSubmit);
+app.post('/api/send-form', handleFormSubmit);
 
 // 5.1 后台管理员登录接口（账号：angel，密码：1231）
 app.post('/api/login', (req, res) => {
