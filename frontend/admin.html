@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>易数系统后台</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background: #f4f7f6;">
+    <div id="loginSection" class="admin-box reveal">
+        <h2>系统管理员登录</h2>
+        <input type="text" id="adminUser" placeholder="账号">
+        <input type="password" id="adminPass" placeholder="密码">
+        <button onclick="login()" class="btn-submit">登录系统</button>
+        <p id="loginError" style="color:red; margin-top:10px;"></p>
+    </div>
+
+    <div id="dashboardSection" class="dashboard reveal" style="display:none;">
+        <div class="dashboard-header">
+            <h2>易数创培云 - 客户线索管理</h2>
+            <button onclick="logout()" class="btn-secondary">退出登录</button>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>时间</th>
+                        <th>客户名称</th>
+                        <th>联系电话</th>
+                        <th>需求描述</th>
+                    </tr>
+                </thead>
+                <tbody id="messageList"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
