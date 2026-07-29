@@ -39,10 +39,26 @@ const transporter = nodemailer.createTransport({
 
 const RECEIVE_EMAIL = '2263571470@qq.com';
 
-// 5. 表单提交接口
+// 5. 表单提交接口（同时保存到本地 JSON 文件供后台读取）
 app.post('/api/send-form', async (req, res) => {
   try {
     const { name, phone, demand } = req.body;
+    
+    let messages = [];
+    try {
+      const fileData = fs.readFileSync(messagesFilePath, 'utf8');
+      messages = JSON.parse(fileData);
+    } catch (e) {
+      messages = [];
+    }
+    messages.unshift({
+      time: new Date().toLocaleString(),
+      name,
+      phone,
+      demand
+    });
+    fs.writeFileSync(messagesFilePath, JSON.stringify(messages, null, 2), 'utf8');
+
     const mailOptions = {
       from: `"易数创培云官网" <2263571470@qq.com>`,
       to: RECEIVE_EMAIL,
@@ -58,6 +74,27 @@ app.post('/api/send-form', async (req, res) => {
   } catch (err) {
     console.error('发送邮件失败:', err);
     res.json({ success: false, msg: '提交失败，请稍后重试' });
+  }
+});
+
+// 5.1 后台管理员登录接口（账号：angel，密码：1231）
+app.post('/api/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'angel' && password === '1231') {
+    res.json({ success: true, token: 'angel-token-success' });
+  } else {
+    res.json({ success: false, error: '账号或密码错误' });
+  }
+});
+
+// 5.2 获取后台留言列表接口
+app.get('/api/messages', (req, res) => {
+  try {
+    const fileData = fs.readFileSync(messagesFilePath, 'utf8');
+    const messages = JSON.parse(fileData);
+    res.json({ success: true, messages });
+  } catch (err) {
+    res.json({ success: false, messages: [] });
   }
 });
 
