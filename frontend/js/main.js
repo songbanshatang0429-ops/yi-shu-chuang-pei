@@ -26,7 +26,7 @@ if (contactForm) {
         try {
             msgDiv.style.color = '#333';
             msgDiv.innerText = '正在发送中...';
-            const res = await fetch('/api/message', {
+            const res = await fetch('https://yishuchuangpei.onrender.com/api/message', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
