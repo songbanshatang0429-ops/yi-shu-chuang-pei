@@ -1,112 +1,105 @@
-// 1. 丝滑滚动出现动画 (Intersection Observer)
-document.addEventListener("DOMContentLoaded", () => {
-    const reveals = document.querySelectorAll(".reveal");
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("active");
-            }
-        });
-    }, { threshold: 0.1 });
-    reveals.forEach(reveal => observer.observe(reveal));
-});
-
-// 2. 客户提交表单逻辑
+// 1. 官网表单提交逻辑
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const msgDiv = document.getElementById('formMsg');
-        const data = {
-            name: document.getElementById('cusName').value,
-            phone: document.getElementById('cusPhone').value,
-            demand: document.getElementById('cusDemand').value
-        };
+        const name = document.getElementById('cusName').value;
+        const phone = document.getElementById('cusPhone').value;
+        const demand = document.getElementById('cusDemand').value;
 
         try {
-            msgDiv.style.color = '#333';
-            msgDiv.innerText = '正在发送中...';
-            const res = await fetch('https://yishuchuangpei.onrender.com/api/message', {
+            const res = await fetch('/api/message', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
+                body: JSON.stringify({ name, phone, demand })
             });
             const result = await res.json();
             if (result.success) {
-                msgDiv.style.color = 'green';
-                msgDiv.innerText = result.message;
+                alert(result.message || '提交成功！');
                 contactForm.reset();
             } else {
-                msgDiv.style.color = 'red';
-                msgDiv.innerText = result.error;
+                alert(result.error || '提交失败');
             }
         } catch (err) {
-            msgDiv.style.color = 'red';
-            msgDiv.innerText = '网络错误，请稍后再试';
+            alert('网络错误，请稍后再试');
         }
     });
 }
 
-// 3. 后台管理员登录逻辑
+// 2. 后台管理员登录逻辑
 async function login() {
     const user = document.getElementById('adminUser').value;
     const pass = document.getElementById('adminPass').value;
     const errorDiv = document.getElementById('loginError');
 
-    const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: user, password: pass })
-    });
-    const result = await res.json();
+    try {
+        const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: user, password: pass })
+        });
+        const result = await res.json();
 
-    if (result.success) {
-        localStorage.setItem('yishu_token', result.token);
-        document.getElementById('loginSection').style.display = 'none';
-        document.getElementById('dashboardSection').style.display = 'block';
-        loadMessages();
-    } else {
-        errorDiv.innerText = result.error;
+        if (result.success) {
+            localStorage.setItem('yishu_token', result.token);
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+            loadMessages();
+        } else {
+            errorDiv.innerText = result.error || '账号或密码错误';
+        }
+    } catch (err) {
+        errorDiv.innerText = '网络错误，登录失败';
     }
 }
 
-// 4. 后台读取客户留言
+// 3. 加载后台留言列表逻辑
 async function loadMessages() {
-    const token = localStorage.getItem('yishu_token');
-    if (!token) return;
+    try {
+        const res = await fetch('/api/messages');
+        const result = await res.json();
+        const messageList = document.getElementById('messageList');
+        
+        if (result.success && result.messages) {
+            messageList.innerHTML = '';
+            
+            if (result.messages.length === 0) {
+                messageList.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:20px; color:#999;">暂无客户留言</td></tr>';
+                return;
+            }
 
-    const res = await fetch('/api/messages', {
-        headers: { 'Authorization': token }
-    });
-    
-    if (res.status === 401) {
-        logout(); return;
+            result.messages.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${item.time || ''}</td>
+                    <td>${item.name || ''}</td>
+                    <td>${item.phone || ''}</td>
+                    <td>${item.demand || ''}</td>
+                `;
+                messageList.appendChild(tr);
+            });
+        }
+    } catch (err) {
+        console.error('加载留言失败:', err);
     }
-    
-    const messages = await res.json();
-    const tbody = document.getElementById('messageList');
-    tbody.innerHTML = '';
-    
-    messages.forEach(msg => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td style="color:#888; font-size:0.9em;">${msg.date}</td>
-            <td style="font-weight:bold;">${msg.name}</td>
-            <td>${msg.phone}</td>
-            <td>${msg.demand}</td>
-        `;
-        tbody.appendChild(tr);
-    });
 }
 
+// 4. 退出登录逻辑
 function logout() {
     localStorage.removeItem('yishu_token');
-    location.reload();
+    document.getElementById('dashboardSection').style.display = 'none';
+    document.getElementById('loginSection').style.display = 'block';
 }
 
-// 如果已经在后台页面且有token，直接显示面板
-if (window.location.pathname.includes('admin.html') && localStorage.getItem('yishu_token')) {
-    document.getElementById('loginSection').style.display = 'none';
-    document.getElementById('dashboardSection').style.display = 'block';
-    loadMessages();
-}
+// 5. 页面加载时自动检查登录状态
+window.onload = () => {
+    if (localStorage.getItem('yishu_token')) {
+        const loginSec = document.getElementById('loginSection');
+        const dashSec = document.getElementById('dashboardSection');
+        if (loginSec && dashSec) {
+            loginSec.style.display = 'none';
+            dashSec.style.display = 'block';
+            loadMessages();
+        }
+    }
+};
