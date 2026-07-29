@@ -1,55 +1,61 @@
-// 1. 官网表单提交逻辑
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const name = document.getElementById('cusName').value;
-        const phone = document.getElementById('cusPhone').value;
-        const demand = document.getElementById('cusDemand').value;
+// 1. 官网表单提交逻辑（仅在存在 contactForm 时运行）
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('cusName')?.value || '';
+            const phone = document.getElementById('cusPhone')?.value || '';
+            const demand = document.getElementById('cusDemand')?.value || '';
 
-        try {
-            const res = await fetch('/api/message', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, phone, demand })
-            });
-            const result = await res.json();
-            if (result.success) {
-                alert(result.message || '提交成功！');
-                contactForm.reset();
-            } else {
-                alert(result.error || '提交失败');
+            try {
+                const res = await fetch('/api/message', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, phone, demand })
+                });
+                const result = await res.json();
+                if (result.success) {
+                    alert(result.message || '提交成功！');
+                    contactForm.reset();
+                } else {
+                    alert(result.error || '提交失败');
+                }
+            } catch (err) {
+                alert('网络错误，请稍后再试');
             }
-        } catch (err) {
-            alert('网络错误，请稍后再试');
-        }
-    });
-}
+        });
+    }
+});
 
-// 2. 后台管理员登录逻辑
+// 2. 后台管理员登录逻辑（仅在后台页面生效，带严格防错保护）
 async function login() {
-    const user = document.getElementById('adminUser').value;
-    const pass = document.getElementById('adminPass').value;
+    const userElem = document.getElementById('adminUser');
+    const passElem = document.getElementById('adminPass');
     const errorDiv = document.getElementById('loginError');
+    
+    if (!userElem || !passElem) return;
 
     try {
         const res = await fetch('/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: user, password: pass })
+            body: JSON.stringify({ username: userElem.value, password: passElem.value })
         });
         const result = await res.json();
 
         if (result.success) {
             localStorage.setItem('yishu_token', result.token);
-            document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('dashboardSection').style.display = 'block';
+            const loginSec = document.getElementById('loginSection');
+            const dashSec = document.getElementById('dashboardSection');
+            if (loginSec) loginSec.style.display = 'none';
+            if (dashSec) dashSec.style.display = 'block';
             loadMessages();
         } else {
-            errorDiv.innerText = result.error || '账号或密码错误';
+            if (errorDiv) errorDiv.innerText = result.error || '账号或密码错误';
         }
     } catch (err) {
-        errorDiv.innerText = '网络错误，登录失败';
+        if (errorDiv) errorDiv.innerText = '网络错误，登录失败';
     }
 }
 
@@ -59,6 +65,7 @@ async function loadMessages() {
         const res = await fetch('/api/messages');
         const result = await res.json();
         const messageList = document.getElementById('messageList');
+        if (!messageList) return;
         
         if (result.success && result.messages) {
             messageList.innerHTML = '';
@@ -87,11 +94,13 @@ async function loadMessages() {
 // 4. 退出登录逻辑
 function logout() {
     localStorage.removeItem('yishu_token');
-    document.getElementById('dashboardSection').style.display = 'none';
-    document.getElementById('loginSection').style.display = 'block';
+    const loginSec = document.getElementById('loginSection');
+    const dashSec = document.getElementById('dashboardSection');
+    if (loginSec) loginSec.style.display = 'block';
+    if (dashSec) dashSec.style.display = 'none';
 }
 
-// 5. 页面加载时自动检查登录状态
+// 5. 页面加载时自动检查登录状态（带防错，不会影响前台首页）
 window.onload = () => {
     if (localStorage.getItem('yishu_token')) {
         const loginSec = document.getElementById('loginSection');
