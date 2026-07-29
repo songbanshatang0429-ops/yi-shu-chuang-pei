@@ -3,100 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>易数创培云科技 | 数字化创新的引领者</title>
+    <title>易数创培科技 | 数字化创新的引领者</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- 毛玻璃导航栏 -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <img src="logo.png" alt="易数创培云科技">
-
-                <span>易数创培云</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home">首页</a></li>
-                <li><a href="#services">核心业务</a></li>
-                <li><a href="#about">关于我们</a></li>
-                <li><a href="#contact" class="btn-primary">合作对接</a></li>
-            </ul>
+    <!-- 顶部导航栏 -->
+    <header class="navbar">
+        <div class="logo-area">
+            <img src="logo.png" alt="Logo" class="logo-img">
+            <span class="logo-text">易数创培云</span>
         </div>
-    </nav>
+        <nav class="nav-links">
+            <a href="#home">首页</a>
+            <a href="#services">核心业务</a>
+            <a href="#about">关于我们</a>
+        </nav>
+        <div class="nav-action">
+            <a href="#contact" class="btn-cooperate">合作对接</a>
+        </div>
+    </header>
 
-    <!-- 首屏横幅 -->
-    <section id="home" class="hero">
-        <div class="hero-content reveal">
-            <h1>云端赋能，数字创新</h1>
-            <p>易数创培云科技（广州）有限公司，致力于为您提供企业级的大数据、云计算与前沿技术培训解决方案，助力企业数字化转型。</p>
-            <a href="#contact" class="btn-large">立即开启合作</a>
+    <!-- 首页 Banner 区域 -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1>赋能企业数字化转型与智能升级</h1>
+            <p>依托前沿的云端算力与AI技术，为您提供全方位的数智化解决方案与专业培云服务。</p>
+            <a href="#contact" class="btn-primary">立即对接需求</a>
         </div>
     </section>
 
-    <!-- 业务模块 -->
-    <section id="services" class="services">
-        <h2 class="section-title reveal">我们的核心业务</h2>
-        <div class="service-grid">
-            <div class="service-card reveal">
-                <div class="icon">☁️</div>
-                <h3>云架构解决方案</h3>
-                <p>提供高可用、高并发的企业级云端架构设计与部署部署，保障业务稳定运行。</p>
+    <!-- 核心业务区域 -->
+    <section id="services" class="services-section">
+        <h2>核心业务</h2>
+        <div class="service-cards">
+            <div class="card">
+                <h3>云端算力与AI部署</h3>
+                <p>提供高性能大模型部署、云架构优化及专业技术支持，助力企业高效落地AI应用。</p>
             </div>
-            <div class="service-card reveal">
-                <div class="icon">📊</div>
-                <h3>大数据分析</h3>
-                <p>深度挖掘数据价值，提供商业智能(BI)与数据中台搭建服务。</p>
+            <div class="card">
+                <h3>数字化人才培云</h3>
+                <p>定制化企业数智化培训课程，培养具备现代科技视野与实战能力的专业团队。</p>
             </div>
-            <div class="service-card reveal">
-                <div class="icon">🎓</div>
-                <h3>企业数字培训</h3>
-                <p>定制化前沿技术实战培训，全面提升团队数字化技术与业务创新能力。</p>
+            <div class="card">
+                <h3>智能系统定制开发</h3>
+                <p>根据企业实际业务场景，量身打造安全、稳定、高效的数字化软件系统。</p>
             </div>
         </div>
     </section>
 
-    <!-- 客户对接通道 -->
-    <section id="contact" class="contact">
-        <div class="contact-box reveal">
-            <h2>合作对接通道</h2>
-            <p>留下您的需求，我们的专家团队将在24小时内与您联系</p>
-            <form id="contactForm">
-                <input type="text" id="cusName" placeholder="您的称呼 / 公司名称" required>
-                <input type="tel" id="cusPhone" placeholder="联系电话" required>
-                <textarea id="cusDemand" rows="4" placeholder="请简述您的需求..."></textarea>
-                <button type="submit" class="btn-submit">发送需求</button>
-            </form>
-            <div id="formMsg" class="form-msg"></div>
-        </div>
+    <!-- 关于我们区域 -->
+    <section id="about" class="about-section">
+        <h2>关于我们</h2>
+        <p>易数创培云科技（广州）有限公司是一家专注于数字化创新与技术赋能的高新企业。我们汇聚行业顶尖技术专家，致力于通过卓越的云计算与AI解决方案，帮助客户在数字经济浪潮中抢占先机，实现跨越式发展。</p>
     </section>
 
-    <footer>
-        <p>&copy; 2026 易数创培云科技（广州）有限公司 版权所有 | <a href="/admin.html" style="color:#666;">管理后台</a></p>
+    <!-- 合作对接表单区域 -->
+    <section id="contact" class="contact-section">
+        <h2>合作对接</h2>
+        <p>留下您的联系方式与需求，我们的专家团队将在24小时内与您取得联系。</p>
+        <form id="contactForm" class="contact-form">
+            <div class="form-group">
+                <label for="cusName">您的称呼 / 公司名称 *</label>
+                <input type="text" id="cusName" required placeholder="请输入您的姓名或公司名称">
+            </div>
+            <div class="form-group">
+                <label for="cusPhone">联系电话 *</label>
+                <input type="tel" id="cusPhone" required placeholder="请输入您的电话号码">
+            </div>
+            <div class="form-group">
+                <label for="cusDemand">需求描述</label>
+                <textarea id="cusDemand" rows="4" placeholder="请简单描述您的业务需求或合作意向"></textarea>
+            </div>
+            <button type="submit" class="btn-submit">提交对接申请</button>
+        </form>
+    </section>
+
+    <!-- 底部版权栏 -->
+    <footer class="footer">
+        <p>&copy; 2026 易数创培云科技（广州）有限公司 版权所有 | <a href="admin.html" style="color: #bbb; text-decoration: none;">管理后台</a></p>
     </footer>
 
+    <!-- 前端交互脚本 -->
     <script src="js/main.js"></script>
-    <!-- 表单提交发送邮件JS -->
-    <script>
-document.querySelector('#contactForm').addEventListener('submit', async function(e){
-  e.preventDefault();
-  const name = document.querySelector('input[placeholder="您的称呼 / 公司名称"]').value;
-  const phone = document.querySelector('input[placeholder="联系电话"]').value;
-  const demand = document.querySelector('textarea[placeholder="请简述您的需求..."]').value;
-
-  const res = await fetch('/api/send-form', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({name, phone, demand})
-  });
-  const data = await res.json();
-  if(data.success){
-    document.querySelector('#formMsg').innerText = '提交成功';
-    this.reset();
-  }else{
-    document.querySelector('#formMsg').innerText = '提交失败';
-  }
-})
-    </script>
-    
 </body>
 </html>
