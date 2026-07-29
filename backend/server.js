@@ -9,13 +9,10 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 自动多层递归寻找正确的 frontend 目录，彻底杜绝路径找不到的问题
-let frontendDir = path.join(__dirname, 'frontend');
+// 核心修正：因为 server.js 在 backend 目录内，frontend 在根目录，必须用 ../ 去上一级找
+let frontendDir = path.join(__dirname, '../frontend');
 if (!fs.existsSync(frontendDir)) {
-  frontendDir = path.join(__dirname, '../frontend');
-}
-if (!fs.existsSync(frontendDir)) {
-  frontendDir = path.join(__dirname, '../../frontend');
+  frontendDir = path.join(__dirname, 'frontend');
 }
 if (!fs.existsSync(frontendDir)) {
   frontendDir = path.join(process.cwd(), 'frontend');
