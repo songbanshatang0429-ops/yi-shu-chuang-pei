@@ -20,6 +20,32 @@ if (!fs.existsSync(DATA_FILE)) {
 
 // 静态托管前端代码目录
 app.use(express.static(path.join(__dirname, '../frontend')));
+// =========================================
+// 管理后台账户密码验证中间件 (账号: angel | 密码: 1231)
+// =========================================
+const adminAuth = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        res.setHeader('WWW-Authenticate', 'Basic realm="Admin Area"');
+        return res.status(401).send('需要登录才能访问管理后台');
+    }
+
+    const auth = Buffer.from(authHeader.split(' ')[1], 'base64').toString().split(':');
+    const username = auth[0];
+    const password = auth[1];
+
+    if (username === 'angel' && password === '1231') {
+        return next(); // 验证通过
+    }
+
+    res.setHeader('WWW-Authenticate', 'Basic realm="Admin Area"');
+    return res.status(401).send('账号或密码错误！');
+};
+
+// 拦截后台页面与数据接口，输入账号密码后方可访问
+app.use('/admin.html', adminAuth);
+app.get('/api/messages', adminAuth);
+app.delete('/api/messages/:id', adminAuth);
 
 // API: 提交合作对接信息
 app.post('/api/message', (req, res) => {
