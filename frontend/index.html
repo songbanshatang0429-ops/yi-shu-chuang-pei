@@ -3,87 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>易数创培科技 | 数字化创新的引领者</title>
+    <title>易数创培云科技 | 数字模型科技与智能化创新的领航者</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- 顶部导航栏 -->
-    <header class="navbar">
+    <!-- 毛玻璃顶部导航栏 -->
+    <nav class="navbar">
         <div class="logo-area">
-            <img src="logo.png" alt="Logo" class="logo-img">
+            <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
             <span class="logo-text">易数创培云</span>
         </div>
-        <nav class="nav-links">
-            <a href="#home">首页</a>
+        <div class="nav-links">
+            <a href="#hero">首页</a>
             <a href="#services">核心业务</a>
             <a href="#about">关于我们</a>
-        </nav>
-        <div class="nav-action">
             <a href="#contact" class="btn-cooperate">合作对接</a>
         </div>
-    </header>
+    </nav>
 
-    <!-- 首页 Banner 区域 -->
-    <section id="home" class="hero-section">
+    <!-- Hero 主视区 -->
+    <section id="hero" class="hero-section">
+        <div class="hero-bg-glow"></div>
         <div class="hero-content">
-            <h1>赋能企业数字化转型与智能升级</h1>
-            <p>依托前沿的云端算力与AI技术，为您提供全方位的数智化解决方案与专业培云服务。</p>
-            <a href="#contact" class="btn-primary">立即对接需求</a>
+            <div class="hero-badge"><i class="fa-solid fa-bolt"></i> 数智化升级解决方案</div>
+            <h1>易数创培云科技</h1>
+            <p>引领企业数字化转型，打造安全、稳定、高效的全场景 AI 与云端系统应用</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary">立即开启合作</a>
+                <a href="#services" class="btn-secondary">探索核心业务</a>
+            </div>
         </div>
     </section>
 
-    <!-- 核心业务区域 -->
+    <!-- 核心业务卡片 -->
     <section id="services" class="services-section">
-        <h2>核心业务</h2>
+        <div class="section-title">
+            <h2>核心业务</h2>
+            <p>基于前沿科技与行业沉淀，提供一站式数字化解决方案</p>
+        </div>
         <div class="service-cards">
             <div class="card">
-                <h3>云端算力与AI部署</h3>
-                <p>提供高性能大模型部署、云架构优化及专业技术支持，助力企业高效落地AI应用。</p>
-            </div>
-            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                 <h3>数字化人才培云</h3>
                 <p>定制化企业数智化培训课程，培养具备现代科技视野与实战能力的专业团队。</p>
+                <div class="card-tag">实战育才</div>
             </div>
             <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-code"></i></div>
                 <h3>智能系统定制开发</h3>
-                <p>根据企业实际业务场景，量身打造安全、稳定、高效的数字化软件系统。</p>
+                <p>紧贴企业实际业务场景，量身打造安全、稳定、高效的数字化软件系统。</p>
+                <div class="card-tag">架构定制</div>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
+                <h3>AI 算力与服务集成</h3>
+                <p>致力于通过卓越的云计算与 AI 解决方案，帮助客户在数字经济浪潮中抢占先机。</p>
+                <div class="card-tag">前沿技术</div>
             </div>
         </div>
     </section>
 
-    <!-- 关于我们区域 -->
+    <!-- 关于我们 -->
     <section id="about" class="about-section">
-        <h2>关于我们</h2>
-        <p>易数创培云科技（广州）有限公司是一家专注于数字化创新与技术赋能的高新企业。我们汇聚行业顶尖技术专家，致力于通过卓越的云计算与AI解决方案，帮助客户在数字经济浪潮中抢占先机，实现跨越式发展。</p>
+        <div class="about-container">
+            <h2>关于我们</h2>
+            <p>易数创培云科技（广州）有限公司是一家专注于数字化创新与技术赋能的高新企业。我们汇聚行业顶尖技术专家，致力于通过卓越的云计算与 AI 解决方案，帮助客户在数字经济浪潮中抢占先机，实现跨越式发展。</p>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <span class="stat-num">99.9%</span>
+                    <span class="stat-label">服务稳定率</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">24h</span>
+                    <span class="stat-label">专家团队响应</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">100+</span>
+                    <span class="stat-label">企业级成功实践</span>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- 合作对接表单区域 -->
+    <!-- 合作对接表单 -->
     <section id="contact" class="contact-section">
-        <h2>合作对接</h2>
-        <p>留下您的联系方式与需求，我们的专家团队将在24小时内与您取得联系。</p>
+        <div class="section-title">
+            <h2>合作对接</h2>
+            <p>留下您的联系方式与需求，我们的专家团队将在24小时内与您取得联系。</p>
+        </div>
         <form id="contactForm" class="contact-form">
             <div class="form-group">
-                <label for="cusName">您的称呼 / 公司名称 *</label>
-                <input type="text" id="cusName" required placeholder="请输入您的姓名或公司名称">
+                <label for="cusName"><i class="fa-solid fa-user"></i> 您的称呼 / 公司名称 <span class="required">*</span></label>
+                <input type="text" id="cusName" placeholder="请输入您的姓名或公司名称" required>
             </div>
             <div class="form-group">
-                <label for="cusPhone">联系电话 *</label>
-                <input type="tel" id="cusPhone" required placeholder="请输入您的电话号码">
+                <label for="cusPhone"><i class="fa-solid fa-phone"></i> 联系电话 <span class="required">*</span></label>
+                <input type="tel" id="cusPhone" placeholder="请输入您的电话号码" required>
             </div>
             <div class="form-group">
-                <label for="cusDemand">需求描述</label>
-                <textarea id="cusDemand" rows="4" placeholder="请简单描述您的业务需求或合作意向"></textarea>
+                <label for="cusDemand"><i class="fa-solid fa-comment-dots"></i> 需求描述</label>
+                <textarea id="cusDemand" rows="4" placeholder="请简单描述您的业务需求或合作意向..."></textarea>
             </div>
-            <button type="submit" class="btn-submit">提交对接申请</button>
+            <button type="submit" class="btn-submit">
+                <span>提交对接申请</span>
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
         </form>
     </section>
 
-    <!-- 底部版权栏 -->
+    <!-- 页脚 -->
     <footer class="footer">
-        <p>&copy; 2026 易数创培云科技（广州）有限公司 版权所有 | <a href="admin.html" style="color: #bbb; text-decoration: none;">管理后台</a></p>
+        <p>&copy; 2026 易数创培云科技（广州）有限公司 版权所有 | <a href="admin.html" class="admin-link" target="_blank">管理后台</a></p>
     </footer>
 
-    <!-- 前端交互脚本 -->
     <script src="js/main.js"></script>
 </body>
 </html>

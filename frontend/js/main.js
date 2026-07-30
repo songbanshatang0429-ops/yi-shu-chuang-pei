@@ -1,114 +1,50 @@
-// 1. 官网表单提交逻辑（仅在存在 contactForm 时运行）
 document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contactForm');
+
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const name = document.getElementById('cusName')?.value || '';
-            const phone = document.getElementById('cusPhone')?.value || '';
-            const demand = document.getElementById('cusDemand')?.value || '';
+
+            const submitBtn = contactForm.querySelector('.btn-submit');
+            const originalHTML = submitBtn.innerHTML;
+
+            const name = document.getElementById('cusName').value.trim();
+            const phone = document.getElementById('cusPhone').value.trim();
+            const demand = document.getElementById('cusDemand').value.trim();
+
+            if (!name || !phone) {
+                alert('请填写您的姓名/公司名称与联系电话！');
+                return;
+            }
+
+            // 加载动画状态
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 正在提交...';
+            submitBtn.disabled = true;
 
             try {
-                const res = await fetch('/api/message', {
+                const response = await fetch('/api/message', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify({ name, phone, demand })
                 });
-                const result = await res.json();
+
+                const result = await response.json();
+
                 if (result.success) {
-                    alert(result.message || '提交成功！');
+                    alert('🎉 ' + result.message);
                     contactForm.reset();
                 } else {
-                    alert(result.error || '提交失败');
+                    alert('❌ 提交失败: ' + (result.error || '未知错误'));
                 }
-            } catch (err) {
-                alert('网络错误，请稍后再试');
+            } catch (error) {
+                console.error('网络错误:', error);
+                alert('❌ 无法连接到服务器，请稍后再试。');
+            } finally {
+                submitBtn.innerHTML = originalHTML;
+                submitBtn.disabled = false;
             }
         });
     }
 });
-
-// 2. 后台管理员登录逻辑（仅在后台页面生效，带严格防错保护）
-async function login() {
-    const userElem = document.getElementById('adminUser');
-    const passElem = document.getElementById('adminPass');
-    const errorDiv = document.getElementById('loginError');
-    
-    if (!userElem || !passElem) return;
-
-    try {
-        const res = await fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: userElem.value, password: passElem.value })
-        });
-        const result = await res.json();
-
-        if (result.success) {
-            localStorage.setItem('yishu_token', result.token);
-            const loginSec = document.getElementById('loginSection');
-            const dashSec = document.getElementById('dashboardSection');
-            if (loginSec) loginSec.style.display = 'none';
-            if (dashSec) dashSec.style.display = 'block';
-            loadMessages();
-        } else {
-            if (errorDiv) errorDiv.innerText = result.error || '账号或密码错误';
-        }
-    } catch (err) {
-        if (errorDiv) errorDiv.innerText = '网络错误，登录失败';
-    }
-}
-
-// 3. 加载后台留言列表逻辑
-async function loadMessages() {
-    try {
-        const res = await fetch('/api/messages');
-        const result = await res.json();
-        const messageList = document.getElementById('messageList');
-        if (!messageList) return;
-        
-        if (result.success && result.messages) {
-            messageList.innerHTML = '';
-            
-            if (result.messages.length === 0) {
-                messageList.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:20px; color:#999;">暂无客户留言</td></tr>';
-                return;
-            }
-
-            result.messages.forEach(item => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${item.time || ''}</td>
-                    <td>${item.name || ''}</td>
-                    <td>${item.phone || ''}</td>
-                    <td>${item.demand || ''}</td>
-                `;
-                messageList.appendChild(tr);
-            });
-        }
-    } catch (err) {
-        console.error('加载留言失败:', err);
-    }
-}
-
-// 4. 退出登录逻辑
-function logout() {
-    localStorage.removeItem('yishu_token');
-    const loginSec = document.getElementById('loginSection');
-    const dashSec = document.getElementById('dashboardSection');
-    if (loginSec) loginSec.style.display = 'block';
-    if (dashSec) dashSec.style.display = 'none';
-}
-
-// 5. 页面加载时自动检查登录状态（带防错，不会影响前台首页）
-window.onload = () => {
-    if (localStorage.getItem('yishu_token')) {
-        const loginSec = document.getElementById('loginSection');
-        const dashSec = document.getElementById('dashboardSection');
-        if (loginSec && dashSec) {
-            loginSec.style.display = 'none';
-            dashSec.style.display = 'block';
-            loadMessages();
-        }
-    }
-};

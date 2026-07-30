@@ -2,37 +2,199 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>易数系统后台</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>易数创培云 - 合作对接管理后台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-dark: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #3b82f6;
+            --danger: #ef4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            padding: 40px 5%;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #334155;
+        }
+        .header h1 { font-size: 1.8rem; font-weight: 700; }
+        .btn-refresh {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .btn-refresh:hover { opacity: 0.9; }
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: var(--card-dark);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+        }
+        .stat-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px; }
+        .stat-card h2 { font-size: 2rem; color: #38bdf8; }
+        .table-container {
+            background: var(--card-dark);
+            border-radius: 12px;
+            border: 1px solid #334155;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #334155;
+        }
+        th { background: #0f172a; color: var(--text-muted); font-weight: 600; }
+        tr:last-child td { border-bottom: none; }
+        .btn-delete {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-delete:hover {
+            background: var(--danger);
+            color: #fff;
+        }
+        .empty-tip {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+    </style>
 </head>
-<body style="background: #f4f7f6;">
-    <div id="loginSection" class="admin-box reveal">
-        <h2>系统管理员登录</h2>
-        <input type="text" id="adminUser" placeholder="账号">
-        <input type="password" id="adminPass" placeholder="密码">
-        <button onclick="login()" class="btn-submit">登录系统</button>
-        <p id="loginError" style="color:red; margin-top:10px;"></p>
+<body>
+    <div class="header">
+        <h1><i class="fa-solid fa-gauge-high"></i> 易数创培云 - 合作对接管理后台</h1>
+        <button class="btn-refresh" onclick="loadMessages()"><i class="fa-solid fa-rotate"></i> 刷新数据</button>
     </div>
 
-    <div id="dashboardSection" class="dashboard reveal" style="display:none;">
-        <div class="dashboard-header">
-            <h2>易数创培云 - 客户线索管理</h2>
-            <button onclick="logout()" class="btn-secondary">退出登录</button>
-        </div>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>时间</th>
-                        <th>客户名称</th>
-                        <th>联系电话</th>
-                        <th>需求描述</th>
-                    </tr>
-                </thead>
-                <tbody id="messageList"></tbody>
-            </table>
+    <div class="stats-container">
+        <div class="stat-card">
+            <p>总对接申请记录</p>
+            <h2 id="totalCount">0</h2>
         </div>
     </div>
-    <script src="js/main.js"></script>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>提交时间</th>
+                    <th>称呼 / 公司名称</th>
+                    <th>联系电话</th>
+                    <th>需求描述</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="messageList">
+                <!-- 动态数据加载区 -->
+            </tbody>
+        </table>
+        <div id="emptyTip" class="empty-tip" style="display: none;">
+            <i class="fa-regular fa-folder-open" style="font-size: 3rem; margin-bottom: 10px;"></i>
+            <p>暂无任何合作对接数据</p>
+        </div>
+    </div>
+
+    <script>
+        async function loadMessages() {
+            const tbody = document.getElementById('messageList');
+            const emptyTip = document.getElementById('emptyTip');
+            const totalCount = document.getElementById('totalCount');
+
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 30px;">正在加载数据...</td></tr>';
+
+            try {
+                const res = await fetch('/api/messages');
+                const result = await res.json();
+
+                if (result.success && result.data) {
+                    const list = result.data;
+                    totalCount.innerText = list.length;
+
+                    if (list.length === 0) {
+                        tbody.innerHTML = '';
+                        emptyTip.style.display = 'block';
+                        return;
+                    }
+
+                    emptyTip.style.display = 'none';
+                    tbody.innerHTML = list.map(item => `
+                        <tr>
+                            <td style="white-space: nowrap; color: #94a3b8;">${item.createdAt || '未知时间'}</td>
+                            <td style="font-weight: 600; color: #fff;">${escapeHtml(item.name)}</td>
+                            <td style="color: #38bdf8; font-family: monospace; font-size: 1.05rem;">${escapeHtml(item.phone)}</td>
+                            <td>${escapeHtml(item.demand)}</td>
+                            <td>
+                                <button class="btn-delete" onclick="deleteMessage('${item.id}')">
+                                    <i class="fa-solid fa-trash"></i> 删除
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color: #ef4444;">获取数据失败</td></tr>';
+                }
+            } catch (e) {
+                console.error(e);
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color: #ef4444;">网络连接异常</td></tr>';
+            }
+        }
+
+        async function deleteMessage(id) {
+            if (!confirm('确定要删除这条对接记录吗？')) return;
+            try {
+                const res = await fetch('/api/messages/' + id, { method: 'DELETE' });
+                const result = await res.json();
+                if (result.success) {
+                    loadMessages();
+                } else {
+                    alert('删除失败: ' + result.error);
+                }
+            } catch (e) {
+                alert('操作失败，网络异常');
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        document.addEventListener('DOMContentLoaded', loadMessages);
+    </script>
 </body>
 </html>
