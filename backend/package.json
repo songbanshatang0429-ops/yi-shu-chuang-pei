@@ -1,11 +1,13 @@
 {
-  "name": "company-backend",
+  "name": "yishuchuangpei",
   "version": "1.0.0",
+  "description": "易数创培云官方网站",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
   "dependencies": {
     "express": "^4.18.2",
     "nodemailer": "^6.9.13"
-  },
-  "scripts": {
-    "start": "node server.js"
   }
 }
