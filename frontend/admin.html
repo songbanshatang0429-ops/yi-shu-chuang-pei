@@ -110,19 +110,14 @@
     </div>
 
     <script>
-        // 🔑 严格获取登录凭证，绝不设置硬编码 Token！
-        function getToken() {
-            return localStorage.getItem('adminToken') || '';
-        }
+        // 🔒 登录凭证仅保存在内存变量中，页面刷新或重新打开即自动清除！
+        let currentToken = '';
 
-        // 页面初始化检查
+        // 页面打开时默认要求输入密码
         window.addEventListener('DOMContentLoaded', () => {
-            const token = getToken();
-            if (!token) {
-                showLoginOverlay('请先输入账号密码登录管理后台');
-            } else {
-                fetchMessages();
-            }
+            // 清理旧可能残留的浏览器本地存储
+            localStorage.removeItem('adminToken');
+            showLoginOverlay('请输入账号密码验证管理员身份');
         });
 
         function showLoginOverlay(msg = '') {
@@ -157,7 +152,7 @@
 
                 const data = await res.json();
                 if (data.success && data.token) {
-                    localStorage.setItem('adminToken', data.token);
+                    currentToken = data.token; // 保存至临时内存
                     hideLoginOverlay();
                     document.getElementById('username').value = '';
                     document.getElementById('password').value = '';
@@ -173,6 +168,7 @@
 
         // 退出登录
         function handleLogout() {
+            currentToken = '';
             localStorage.removeItem('adminToken');
             document.getElementById('messageList').innerHTML = '<tr><td colspan="6" style="text-align: center; color: #718096;">🔒 已退出登录</td></tr>';
             document.getElementById('totalCount').innerText = '0';
@@ -181,19 +177,18 @@
 
         // 获取记录列表
         async function fetchMessages() {
-            const token = getToken();
-            if (!token) {
+            if (!currentToken) {
                 showLoginOverlay('请先登录管理账号');
                 return;
             }
 
             try {
-                const res = await fetch(`/api/messages?token=${encodeURIComponent(token)}`, {
-                    headers: { 'x-admin-token': token }
+                const res = await fetch(`/api/messages?token=${encodeURIComponent(currentToken)}`, {
+                    headers: { 'x-admin-token': currentToken }
                 });
 
                 if (res.status === 401) {
-                    localStorage.removeItem('adminToken');
+                    currentToken = '';
                     showLoginOverlay('登录凭证已失效，请重新登录');
                     document.getElementById('messageList').innerHTML = '<tr><td colspan="6" style="text-align: center; color: #e53e3e;">未授权访问</td></tr>';
                     document.getElementById('totalCount').innerText = '0';
@@ -217,7 +212,7 @@
                 tbody.innerHTML = list.map(msg => {
                     let fileHtml = '<span class="no-file">无附件</span>';
                     if (msg.file && msg.file.fileId) {
-                        const downloadUrl = `/api/files/${msg.file.fileId}?token=${encodeURIComponent(token)}`;
+                        const downloadUrl = `/api/files/${msg.file.fileId}?token=${encodeURIComponent(currentToken)}`;
                         fileHtml = `<a href="${downloadUrl}" class="btn-download" target="_blank"><i class="fa-solid fa-download"></i> 下载《${escapeHtml(msg.file.fileName)}》</a>`;
                     }
 
@@ -242,16 +237,15 @@
         // 删除记录
         async function deleteMessage(id) {
             if (!confirm('警告：确定要彻底删除这条记录及对应的云端附件吗？')) return;
-            const token = getToken();
-            if (!token) {
+            if (!currentToken) {
                 showLoginOverlay('登录超时，请重新登录');
                 return;
             }
 
             try {
-                const res = await fetch(`/api/messages/${id}?token=${encodeURIComponent(token)}`, {
+                const res = await fetch(`/api/messages/${id}?token=${encodeURIComponent(currentToken)}`, {
                     method: 'DELETE',
-                    headers: { 'x-admin-token': token }
+                    headers: { 'x-admin-token': currentToken }
                 });
                 const result = await res.json();
                 if (result.success) {
