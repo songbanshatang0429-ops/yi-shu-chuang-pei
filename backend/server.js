@@ -1,7 +1,6 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,22 +10,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // =========================================
-// 📧 邮箱与授权码已直接填入
+// 📱 微信推送 Key (Server酱 SendKey)
 // =========================================
-const MY_EMAIL = '2263571470@qq.com';
-const MY_PASS = 'rgonkirgkuxyebdg';
-const RECEIVE_EMAIL = '2263571470@qq.com';
-
-// 创建 QQ 邮箱 SMTP 发送器
-const transporter = nodemailer.createTransport({
-    host: 'smtp.qq.com',
-    port: 465,
-    secure: true,
-    auth: {
-        user: MY_EMAIL,
-        pass: MY_PASS
-    }
-});
+const SERVERCHAN_SENDKEY = 'SCT387496TzDdLvYtCVIYQJCe9kB5uuFn1';
 
 // 确保数据存储目录存在
 if (!fs.existsSync(path.dirname(DATA_FILE))) {
@@ -39,7 +25,7 @@ if (!fs.existsSync(DATA_FILE)) {
 // 静态托管前端代码目录
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-// 后台登录接口
+// 管理后台登录接口 (账号: angel / 密码: 1231)
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
     if (username === 'angel' && password === '1231') {
@@ -78,31 +64,27 @@ app.post('/api/message', async (req, res) => {
         messages.unshift(newMessage);
         fs.writeFileSync(DATA_FILE, JSON.stringify(messages, null, 2), 'utf8');
 
-        // 🚀 触发邮件提醒（后台异步发送，不拖慢前端展示）
-        const mailOptions = {
-            from: `"易数创培云官网" <${MY_EMAIL}>`,
-            to: RECEIVE_EMAIL,
-            subject: `🔔 收到新的合作申请：${name} (${phone})`,
-            html: `
-                <div style="padding: 24px; background: #0c0d10; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
-                    <h2 style="color: #ff334b; margin-top: 0;">🚀 易数创培云 - 收到新的合作对接申请</h2>
-                    <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 16px 0;" />
-                    <p style="margin: 8px 0; color: #a1a1aa;"><strong>提交时间：</strong> ${newMessage.createdAt}</p>
-                    <p style="margin: 8px 0; color: #a1a1aa;"><strong>客户称呼/公司：</strong> <span style="color: #ffffff; font-weight: bold; font-size: 1.1em;">${name}</span></p>
-                    <p style="margin: 8px 0; color: #a1a1aa;"><strong>联系电话：</strong> <span style="color: #ff7875; font-weight: bold; font-size: 1.1em;">${phone}</span></p>
-                    <p style="margin: 8px 0; color: #a1a1aa;"><strong>需求描述：</strong></p>
-                    <blockquote style="background: #16181d; padding: 14px; border-left: 4px solid #ff334b; margin: 10px 0 0 0; color: #f4f4f5; border-radius: 4px;">
-                        ${demand || '无特定描述'}
-                    </blockquote>
-                </div>
-            `
-        };
+        // 🚀 通过 HTTPS API 异步推送微信弹窗（100% 穿透 Render 限制）
+        if (SERVERCHAN_SENDKEY) {
+            const pushTitle = `🚀 收到新客户申请：${name}`;
+            const pushDesp = `**提交时间**：${newMessage.createdAt}\n\n` +
+                             `**客户称呼/公司**：${name}\n\n` +
+                             `**联系电话**：${phone}\n\n` +
+                             `**需求描述**：${demand || '无特定描述'}`;
 
-        transporter.sendMail(mailOptions).then(() => {
-            console.log('📧 邮件通知发送成功！');
-        }).catch(err => {
-            console.error('❌ 邮件发送失败:', err);
-        });
+            fetch(`https://sctapi.ftqq.com/${SERVERCHAN_SENDKEY}.send`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    title: pushTitle,
+                    desp: pushDesp
+                })
+            }).then(r => r.json()).then(data => {
+                console.log('📱 微信推送响应:', data);
+            }).catch(err => {
+                console.error('❌ 微信推送失败:', err);
+            });
+        }
 
         res.json({ success: true, message: '您的对接申请已提交成功！我们的团队将尽快与您联系。' });
     } catch (err) {
