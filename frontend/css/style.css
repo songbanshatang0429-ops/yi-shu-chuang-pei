@@ -1,15 +1,17 @@
 /* =========================================
-   易数创培云 - 高级科技风格主题样式
+   易数创培云 - 网易红高级科技风格主题样式
    ========================================= */
 :root {
-    --primary-gradient: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #06b6d4 100%);
-    --accent-glow: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
-    --bg-main: #090d16;
-    --bg-card: rgba(17, 24, 39, 0.75);
-    --border-glow: rgba(255, 255, 255, 0.1);
+    --primary-gradient: linear-gradient(135deg, #e60012 0%, #ff334b 50%, #ff6b6b 100%);
+    --accent-glow: radial-gradient(circle, rgba(230, 0, 18, 0.22) 0%, rgba(0, 0, 0, 0) 70%);
+    --bg-main: #0c0d10;
+    --bg-card: rgba(22, 24, 29, 0.85);
+    --border-glow: rgba(255, 255, 255, 0.08);
     --text-title: #ffffff;
-    --text-body: #9ca3af;
-    --text-light: #e5e7eb;
+    --text-body: #a1a1aa;
+    --text-light: #f4f4f5;
+    --accent-red: #ff334b;
+    --accent-red-light: #ff7875;
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -39,7 +41,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0 8%;
-    background: rgba(9, 13, 22, 0.85);
+    background: rgba(12, 13, 16, 0.88);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border-glow);
@@ -61,8 +63,8 @@ body {
     font-size: 1.25rem;
     font-weight: 800;
     letter-spacing: 1px;
-    background: linear-gradient(90deg, #60a5fa, #38bdf8);
-    background-clip: text;               /* 👈 就是多加了这一行通用语法 */
+    background: linear-gradient(90deg, #ff4d4d, #ff7875);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -82,7 +84,7 @@ body {
 }
 
 .nav-links a:hover {
-    color: #38bdf8;
+    color: var(--accent-red-light);
 }
 
 .btn-cooperate {
@@ -90,12 +92,12 @@ body {
     color: #fff !important;
     padding: 8px 22px;
     border-radius: 20px;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 4px 16px rgba(230, 0, 18, 0.35);
 }
 
 .btn-cooperate:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+    box-shadow: 0 6px 22px rgba(230, 0, 18, 0.5);
 }
 
 /* Hero 主视觉区 */
@@ -111,10 +113,10 @@ body {
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 600px;
-    height: 600px;
+    width: 650px;
+    height: 650px;
     background: var(--accent-glow);
-    filter: blur(80px);
+    filter: blur(90px);
     pointer-events: none;
 }
 
@@ -124,9 +126,9 @@ body {
     gap: 8px;
     padding: 6px 16px;
     border-radius: 30px;
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    color: #60a5fa;
+    background: rgba(230, 0, 18, 0.12);
+    border: 1px solid rgba(230, 0, 18, 0.3);
+    color: var(--accent-red-light);
     font-size: 0.85rem;
     margin-bottom: 24px;
 }
@@ -159,13 +161,13 @@ body {
     padding: 14px 36px;
     border-radius: 30px;
     font-weight: 600;
-    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 8px 24px rgba(230, 0, 18, 0.4);
     transition: var(--transition-smooth);
 }
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(56, 189, 248, 0.5);
+    box-shadow: 0 12px 30px rgba(230, 0, 18, 0.6);
 }
 
 .btn-secondary {
@@ -218,15 +220,15 @@ body {
 
 .card:hover {
     transform: translateY(-8px);
-    border-color: rgba(59, 130, 246, 0.5);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.2);
+    border-color: rgba(230, 0, 18, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(230, 0, 18, 0.25);
 }
 
 .card-icon {
     width: 54px;
     height: 54px;
-    background: rgba(59, 130, 246, 0.15);
-    color: #38bdf8;
+    background: rgba(230, 0, 18, 0.12);
+    color: var(--accent-red);
     border-radius: 14px;
     display: flex;
     align-items: center;
@@ -249,8 +251,8 @@ body {
 .card-tag {
     display: inline-block;
     font-size: 0.75rem;
-    color: #60a5fa;
-    background: rgba(96, 165, 250, 0.1);
+    color: var(--accent-red-light);
+    background: rgba(230, 0, 18, 0.1);
     padding: 4px 12px;
     border-radius: 12px;
 }
@@ -258,7 +260,7 @@ body {
 /* 关于我们 */
 .about-section {
     padding: 100px 8%;
-    background: rgba(17, 24, 39, 0.3);
+    background: rgba(22, 24, 29, 0.4);
     border-top: 1px solid var(--border-glow);
     border-bottom: 1px solid var(--border-glow);
 }
@@ -297,7 +299,7 @@ body {
 .stat-num {
     font-size: 2.5rem;
     font-weight: 800;
-    color: #38bdf8;
+    color: var(--accent-red);
 }
 
 .stat-label {
@@ -317,7 +319,7 @@ body {
     padding: 40px;
     border-radius: 24px;
     backdrop-filter: blur(12px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
 
 .form-group {
@@ -339,7 +341,7 @@ body {
 .form-group input,
 .form-group textarea {
     width: 100%;
-    background: rgba(9, 13, 22, 0.8);
+    background: rgba(12, 13, 16, 0.85);
     border: 1px solid var(--border-glow);
     border-radius: 12px;
     padding: 14px 18px;
@@ -351,8 +353,8 @@ body {
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #38bdf8;
-    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    border-color: var(--accent-red);
+    box-shadow: 0 0 0 3px rgba(230, 0, 18, 0.2);
 }
 
 .btn-submit {
@@ -370,12 +372,12 @@ body {
     justify-content: center;
     gap: 10px;
     transition: var(--transition-smooth);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 6px 20px rgba(230, 0, 18, 0.4);
 }
 
 .btn-submit:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(56, 189, 248, 0.5);
+    box-shadow: 0 10px 25px rgba(230, 0, 18, 0.6);
 }
 
 /* 页脚 */
@@ -384,11 +386,11 @@ body {
     text-align: center;
     border-top: 1px solid var(--border-glow);
     font-size: 0.85rem;
-    color: #6b7280;
+    color: #71717a;
 }
 
 .admin-link {
-    color: #60a5fa;
+    color: var(--accent-red-light);
     text-decoration: none;
 }
 
