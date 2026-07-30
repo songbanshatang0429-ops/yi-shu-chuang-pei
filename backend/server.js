@@ -20,34 +20,30 @@ if (!fs.existsSync(DATA_FILE)) {
 
 // 静态托管前端代码目录
 app.use(express.static(path.join(__dirname, '../frontend')));
-// =========================================
-// 管理后台账户密码验证中间件 (账号: angel | 密码: 1231)
-// =========================================
-const adminAuth = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) {
-        res.setHeader('WWW-Authenticate', 'Basic realm="Admin Area"');
-        return res.status(401).send('需要登录才能访问管理后台');
-    }
 
-    const auth = Buffer.from(authHeader.split(' ')[1], 'base64').toString().split(':');
-    const username = auth[0];
-    const password = auth[1];
+// =========================================
+// 管理后台 Token 登录与安全校验 (账号: angel | 密码: 1231)
+// =========================================
 
+// 1. 登录验证接口
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
     if (username === 'angel' && password === '1231') {
-        return next(); // 验证通过
+        return res.json({ success: true, token: 'TOKEN_ANGEL_SECURE_KEY_1231' });
     }
+    return res.status(401).json({ success: false, error: '账号或密码错误！' });
+});
 
-    res.setHeader('WWW-Authenticate', 'Basic realm="Admin Area"');
-    return res.status(401).send('账号或密码错误！');
+// 2. Token 安全拦截中间件
+const verifyToken = (req, res, next) => {
+    const token = req.headers['x-admin-token'];
+    if (token === 'TOKEN_ANGEL_SECURE_KEY_1231') {
+        return next();
+    }
+    return res.status(401).json({ success: false, error: '未登录或登录已失效，请重新登录' });
 };
 
-// 拦截后台页面与数据接口，输入账号密码后方可访问
-app.use('/admin.html', adminAuth);
-app.get('/api/messages', adminAuth);
-app.delete('/api/messages/:id', adminAuth);
-
-// API: 提交合作对接信息
+// API: 提交合作对接信息 (公开接口，客户均可提交)
 app.post('/api/message', (req, res) => {
     try {
         const { name, phone, demand } = req.body;
@@ -76,8 +72,8 @@ app.post('/api/message', (req, res) => {
     }
 });
 
-// API: 获取所有合作对接记录（后台使用）
-app.get('/api/messages', (req, res) => {
+// API: 获取所有合作对接记录（受 Token 保护，需要登录）
+app.get('/api/messages', verifyToken, (req, res) => {
     try {
         const fileData = fs.readFileSync(DATA_FILE, 'utf8');
         const messages = JSON.parse(fileData || '[]');
@@ -88,8 +84,8 @@ app.get('/api/messages', (req, res) => {
     }
 });
 
-// API: 删除指定的对接记录（后台使用）
-app.delete('/api/messages/:id', (req, res) => {
+// API: 删除指定的对接记录（受 Token 保护，需要登录）
+app.delete('/api/messages/:id', verifyToken, (req, res) => {
     try {
         const { id } = req.params;
         const fileData = fs.readFileSync(DATA_FILE, 'utf8');

@@ -21,6 +21,43 @@
             color: var(--text-main);
             padding: 40px 5%;
         }
+
+        /* 登录遮罩层样式 */
+        .login-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .login-card {
+            background: var(--card-dark);
+            border: 1px solid #334155;
+            padding: 40px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        .login-card h2 { font-size: 1.5rem; margin-bottom: 24px; color: #fff; }
+        .login-input-group { margin-bottom: 20px; text-align: left; }
+        .login-input-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; }
+        .login-input-group input {
+            width: 100%; padding: 12px 16px; border-radius: 8px;
+            border: 1px solid #334155; background: #0f172a; color: #fff; outline: none;
+        }
+        .login-input-group input:focus { border-color: var(--primary); }
+        .btn-login {
+            width: 100%; padding: 12px; background: var(--primary); color: #fff;
+            border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .btn-login:hover { opacity: 0.9; }
+
+        /* 主后台页面 */
         .header {
             display: flex;
             justify-content: space-between;
@@ -30,75 +67,55 @@
             border-bottom: 1px solid #334155;
         }
         .header h1 { font-size: 1.8rem; font-weight: 700; }
-        .btn-refresh {
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.2s;
+        .header-actions { display: flex; gap: 12px; }
+        .btn-refresh, .btn-logout {
+            color: #fff; border: none; padding: 10px 18px; border-radius: 8px;
+            cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px;
         }
-        .btn-refresh:hover { opacity: 0.9; }
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        .stat-card {
-            background: var(--card-dark);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #334155;
-        }
+        .btn-refresh { background: var(--primary); }
+        .btn-logout { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.4); }
+        .btn-logout:hover { background: var(--danger); color: #fff; }
+
+        .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: var(--card-dark); padding: 20px; border-radius: 12px; border: 1px solid #334155; }
         .stat-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px; }
         .stat-card h2 { font-size: 2rem; color: #38bdf8; }
-        .table-container {
-            background: var(--card-dark);
-            border-radius: 12px;
-            border: 1px solid #334155;
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-        th, td {
-            padding: 16px 20px;
-            border-bottom: 1px solid #334155;
-        }
+        .table-container { background: var(--card-dark); border-radius: 12px; border: 1px solid #334155; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 16px 20px; border-bottom: 1px solid #334155; }
         th { background: #0f172a; color: var(--text-muted); font-weight: 600; }
-        tr:last-child td { border-bottom: none; }
-        .btn-delete {
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--danger);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            padding: 6px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .btn-delete:hover {
-            background: var(--danger);
-            color: #fff;
-        }
-        .empty-tip {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
-        }
+        .btn-delete { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); padding: 6px 14px; border-radius: 6px; cursor: pointer; }
+        .btn-delete:hover { background: var(--danger); color: #fff; }
+        .empty-tip { text-align: center; padding: 60px 20px; color: var(--text-muted); }
     </style>
 </head>
 <body>
+
+    <!-- 登录拦截弹窗 -->
+    <div id="loginOverlay" class="login-overlay">
+        <div class="login-card">
+            <h2><i class="fa-solid fa-lock"></i> 管理员登录</h2>
+            <form id="loginForm">
+                <div class="login-input-group">
+                    <label>管理账号</label>
+                    <input type="text" id="adminUser" placeholder="请输入账号" required>
+                </div>
+                <div class="login-input-group">
+                    <label>登录密码</label>
+                    <input type="password" id="adminPass" placeholder="请输入密码" required>
+                </div>
+                <button type="submit" class="btn-login">安全登录</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 后台管理主体区域 -->
     <div class="header">
         <h1><i class="fa-solid fa-gauge-high"></i> 易数创培云 - 合作对接管理后台</h1>
-        <button class="btn-refresh" onclick="loadMessages()"><i class="fa-solid fa-rotate"></i> 刷新数据</button>
+        <div class="header-actions">
+            <button class="btn-refresh" onclick="loadMessages()"><i class="fa-solid fa-rotate"></i> 刷新</button>
+            <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> 退出登录</button>
+        </div>
     </div>
 
     <div class="stats-container">
@@ -119,9 +136,7 @@
                     <th>操作</th>
                 </tr>
             </thead>
-            <tbody id="messageList">
-                <!-- 动态数据加载区 -->
-            </tbody>
+            <tbody id="messageList"></tbody>
         </table>
         <div id="emptyTip" class="empty-tip" style="display: none;">
             <i class="fa-regular fa-folder-open" style="font-size: 3rem; margin-bottom: 10px;"></i>
@@ -130,7 +145,48 @@
     </div>
 
     <script>
+        // 校验 sessionStorage 是否存在登录状态
+        function checkAuth() {
+            const token = sessionStorage.getItem('adminToken');
+            if (token) {
+                document.getElementById('loginOverlay').style.display = 'none';
+                loadMessages();
+            } else {
+                document.getElementById('loginOverlay').style.display = 'flex';
+            }
+        }
+
+        // 登录逻辑
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('adminUser').value.trim();
+            const password = document.getElementById('adminPass').value.trim();
+
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const result = await res.json();
+
+                if (result.success) {
+                    // 将登录状态保存在当前 Session 中
+                    sessionStorage.setItem('adminToken', result.token);
+                    checkAuth();
+                } else {
+                    alert('❌ ' + result.error);
+                }
+            } catch (err) {
+                alert('❌ 登录请求失败，请检查网络');
+            }
+        });
+
+        // 加载留言数据
         async function loadMessages() {
+            const token = sessionStorage.getItem('adminToken');
+            if (!token) return;
+
             const tbody = document.getElementById('messageList');
             const emptyTip = document.getElementById('emptyTip');
             const totalCount = document.getElementById('totalCount');
@@ -138,9 +194,17 @@
             tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 30px;">正在加载数据...</td></tr>';
 
             try {
-                const res = await fetch('/api/messages');
-                const result = await res.json();
+                const res = await fetch('/api/messages', {
+                    headers: { 'x-admin-token': token }
+                });
+                
+                if (res.status === 401) {
+                    alert('登录失效，请重新登录');
+                    logout();
+                    return;
+                }
 
+                const result = await res.json();
                 if (result.success && result.data) {
                     const list = result.data;
                     totalCount.innerText = list.length;
@@ -165,19 +229,22 @@
                             </td>
                         </tr>
                     `).join('');
-                } else {
-                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color: #ef4444;">获取数据失败</td></tr>';
                 }
             } catch (e) {
-                console.error(e);
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color: #ef4444;">网络连接异常</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color: #ef4444;">获取数据失败</td></tr>';
             }
         }
 
+        // 删除数据
         async function deleteMessage(id) {
             if (!confirm('确定要删除这条对接记录吗？')) return;
+            const token = sessionStorage.getItem('adminToken');
+
             try {
-                const res = await fetch('/api/messages/' + id, { method: 'DELETE' });
+                const res = await fetch('/api/messages/' + id, {
+                    method: 'DELETE',
+                    headers: { 'x-admin-token': token }
+                });
                 const result = await res.json();
                 if (result.success) {
                     loadMessages();
@@ -185,8 +252,14 @@
                     alert('删除失败: ' + result.error);
                 }
             } catch (e) {
-                alert('操作失败，网络异常');
+                alert('操作失败');
             }
+        }
+
+        // 退出登录
+        function logout() {
+            sessionStorage.removeItem('adminToken'); // 清空 Session 记录
+            location.reload(); // 刷新页面
         }
 
         function escapeHtml(str) {
@@ -194,7 +267,7 @@
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        document.addEventListener('DOMContentLoaded', loadMessages);
+        document.addEventListener('DOMContentLoaded', checkAuth);
     </script>
 </body>
 </html>
