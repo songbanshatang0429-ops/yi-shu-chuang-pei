@@ -15,7 +15,7 @@
         .btn-refresh { background: #e53e3e; color: white; }
         .btn-logout { background: #4a5568; color: white; margin-left: 10px; }
         .btn-delete { background: #c53030; color: white; padding: 4px 10px; font-size: 0.85rem; }
-        .btn-download { background: #2b6cb0; color: white; padding: 5px 12px; font-size: 0.85rem; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
+        .btn-download { background: #2b6cb0; color: white; padding: 6px 12px; font-size: 0.85rem; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
         .btn-download:hover { background: #3182ce; }
         .card { background: #1a1d24; border-radius: 8px; padding: 20px; margin-bottom: 20px; border: 1px solid #2d3748; }
         .stat-num { font-size: 2rem; color: #e53e3e; font-weight: bold; margin-top: 10px; }
@@ -25,27 +25,57 @@
         tr:hover { background: #222630; }
         .no-file { color: #666; font-size: 0.85rem; }
         
-        /* 登录弹窗样式 */
-        .login-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 999; }
-        .login-box { background: #1a1d24; padding: 30px; border-radius: 8px; width: 320px; border: 1px solid #2d3748; text-align: center; }
-        .login-box h2 { margin-bottom: 20px; font-size: 1.2rem; }
-        .login-box input { width: 100%; padding: 10px; margin-bottom: 15px; background: #0f1117; border: 1px solid #4a5568; color: white; border-radius: 4px; }
-        .login-box button { width: 100%; padding: 10px; background: #e53e3e; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        /* 强制高强度安全遮罩蒙版 */
+        .login-overlay { 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100vw; height: 100vh; 
+            background: rgba(10, 12, 16, 0.96); 
+            backdrop-filter: blur(10px);
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 99999; 
+        }
+        .login-box { 
+            background: #1a1d24; 
+            padding: 35px 30px; 
+            border-radius: 12px; 
+            width: 360px; 
+            border: 1px solid #2d3748; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            text-align: center; 
+        }
+        .login-box h2 { margin-bottom: 25px; font-size: 1.3rem; color: #fff; }
+        .login-box .input-group { margin-bottom: 18px; text-align: left; }
+        .login-box label { display: block; font-size: 0.85rem; color: #a0aec0; margin-bottom: 6px; }
+        .login-box input { width: 100%; padding: 12px; background: #0f1117; border: 1px solid #4a5568; color: white; border-radius: 6px; font-size: 0.95rem; }
+        .login-box input:focus { border-color: #e53e3e; outline: none; }
+        .login-box button { width: 100%; padding: 12px; background: #e53e3e; color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 10px; transition: background 0.2s; }
+        .login-box button:hover { background: #c53030; }
+        .login-error { color: #fc8181; font-size: 0.85rem; margin-top: 12px; min-height: 20px; }
     </style>
 </head>
 <body>
 
-    <!-- 登录弹窗 (未登录时显示) -->
+    <!-- 强制登录遮罩蒙版 -->
     <div id="loginOverlay" class="login-overlay">
         <div class="login-box">
-            <h2><i class="fa-solid fa-lock"></i> 管理员登录</h2>
-            <input type="text" id="username" placeholder="账号 (默认: angel)">
-            <input type="password" id="password" placeholder="密码 (默认: 1231)">
-            <button onclick="handleLogin()">登 录</button>
+            <h2><i class="fa-solid fa-user-shield"></i> 管理员身份验证</h2>
+            <div class="input-group">
+                <label for="username"><i class="fa-solid fa-user"></i> 登录账号</label>
+                <input type="text" id="username" placeholder="请输入管理员账号">
+            </div>
+            <div class="input-group">
+                <label for="password"><i class="fa-solid fa-key"></i> 登录密码</label>
+                <input type="password" id="password" placeholder="请输入管理员密码" onkeydown="if(event.key==='Enter') handleLogin()">
+            </div>
+            <button onclick="handleLogin()"><i class="fa-solid fa-right-to-bracket"></i> 登录后台</button>
+            <div id="loginError" class="login-error"></div>
         </div>
     </div>
 
-    <!-- 主界面 -->
+    <!-- 后台主界面 -->
     <div class="container">
         <div class="header">
             <h1 class="title"><i class="fa-solid fa-graduation-cap"></i> 易数创培云 - 合作对接管理后台</h1>
@@ -73,87 +103,130 @@
                     </tr>
                 </thead>
                 <tbody id="messageList">
-                    <tr><td colspan="6" style="text-align: center; color: #718096;">加载中...</td></tr>
+                    <tr><td colspan="6" style="text-align: center; color: #718096;">🔒 请先登录以查看管理数据</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        // 获取凭证 token
+        // 🔑 严格获取登录凭证，绝不设置硬编码 Token！
         function getToken() {
-            return localStorage.getItem('adminToken') || 'TOKEN_ANGEL_SECURE_KEY_1231';
+            return localStorage.getItem('adminToken') || '';
+        }
+
+        // 页面初始化检查
+        window.addEventListener('DOMContentLoaded', () => {
+            const token = getToken();
+            if (!token) {
+                showLoginOverlay('请先输入账号密码登录管理后台');
+            } else {
+                fetchMessages();
+            }
+        });
+
+        function showLoginOverlay(msg = '') {
+            document.getElementById('loginOverlay').style.display = 'flex';
+            if (msg) document.getElementById('loginError').innerText = msg;
+        }
+
+        function hideLoginOverlay() {
+            document.getElementById('loginOverlay').style.display = 'none';
+            document.getElementById('loginError').innerText = '';
         }
 
         // 登录逻辑
         async function handleLogin() {
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password').value;
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+            const errDiv = document.getElementById('loginError');
+
+            if (!user || !pass) {
+                errDiv.innerText = '账号与密码不能为空！';
+                return;
+            }
+
+            errDiv.innerText = '正在验证身份...';
+
             try {
                 const res = await fetch('/api/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username: user, password: pass })
                 });
+
                 const data = await res.json();
-                if (data.success) {
+                if (data.success && data.token) {
                     localStorage.setItem('adminToken', data.token);
-                    document.getElementById('loginOverlay').style.display = 'none';
+                    hideLoginOverlay();
+                    document.getElementById('username').value = '';
+                    document.getElementById('password').value = '';
                     fetchMessages();
                 } else {
-                    alert('❌ ' + (data.error || '登录失败'));
+                    errDiv.innerText = '❌ ' + (data.error || '账号或密码不正确');
                 }
             } catch (err) {
-                alert('网络请求失败');
+                console.error(err);
+                errDiv.innerText = '❌ 网络连接失败，请重试';
             }
         }
 
         // 退出登录
         function handleLogout() {
             localStorage.removeItem('adminToken');
-            document.getElementById('loginOverlay').style.display = 'flex';
+            document.getElementById('messageList').innerHTML = '<tr><td colspan="6" style="text-align: center; color: #718096;">🔒 已退出登录</td></tr>';
+            document.getElementById('totalCount').innerText = '0';
+            showLoginOverlay('已成功退出登录');
         }
 
         // 获取记录列表
         async function fetchMessages() {
             const token = getToken();
+            if (!token) {
+                showLoginOverlay('请先登录管理账号');
+                return;
+            }
+
             try {
-                const res = await fetch(`/api/messages?token=${token}`, {
+                const res = await fetch(`/api/messages?token=${encodeURIComponent(token)}`, {
                     headers: { 'x-admin-token': token }
                 });
 
                 if (res.status === 401) {
-                    document.getElementById('loginOverlay').style.display = 'flex';
+                    localStorage.removeItem('adminToken');
+                    showLoginOverlay('登录凭证已失效，请重新登录');
+                    document.getElementById('messageList').innerHTML = '<tr><td colspan="6" style="text-align: center; color: #e53e3e;">未授权访问</td></tr>';
+                    document.getElementById('totalCount').innerText = '0';
                     return;
                 }
 
                 const result = await res.json();
                 if (!result.success) throw new Error(result.error);
-                
-                document.getElementById('loginOverlay').style.display = 'none';
-                const list = result.data;
+
+                hideLoginOverlay();
+
+                const list = result.data || [];
                 document.getElementById('totalCount').innerText = list.length;
-                
+
                 const tbody = document.getElementById('messageList');
                 if (list.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #718096;">暂无对接数据</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #718096;">暂无对接申请数据</td></tr>';
                     return;
                 }
-                
+
                 tbody.innerHTML = list.map(msg => {
-                    // 渲染需求附件下载链接
                     let fileHtml = '<span class="no-file">无附件</span>';
                     if (msg.file && msg.file.fileId) {
-                        const downloadUrl = `/api/files/${msg.file.fileId}?token=${token}`;
+                        const downloadUrl = `/api/files/${msg.file.fileId}?token=${encodeURIComponent(token)}`;
                         fileHtml = `<a href="${downloadUrl}" class="btn-download" target="_blank"><i class="fa-solid fa-download"></i> 下载《${escapeHtml(msg.file.fileName)}》</a>`;
                     }
-                    
+
                     return `
                         <tr>
                             <td>${msg.createdAt || '未知时间'}</td>
                             <td><strong>${escapeHtml(msg.name)}</strong></td>
                             <td style="color: #fc8181;">${escapeHtml(msg.phone)}</td>
-                            <td>${escapeHtml(msg.demand || '无')}</td>
+                            <td>${escapeHtml(msg.demand || '无特定描述')}</td>
                             <td>${fileHtml}</td>
                             <td>
                                 <button class="btn btn-delete" onclick="deleteMessage('${msg.id}')"><i class="fa-solid fa-trash"></i> 删除</button>
@@ -162,16 +235,21 @@
                     `;
                 }).join('');
             } catch (err) {
-                console.error(err);
+                console.error('获取列表异常:', err);
             }
         }
 
         // 删除记录
         async function deleteMessage(id) {
-            if (!confirm('确定要删除这条记录及其附件吗？')) return;
+            if (!confirm('警告：确定要彻底删除这条记录及对应的云端附件吗？')) return;
             const token = getToken();
+            if (!token) {
+                showLoginOverlay('登录超时，请重新登录');
+                return;
+            }
+
             try {
-                const res = await fetch(`/api/messages/${id}?token=${token}`, {
+                const res = await fetch(`/api/messages/${id}?token=${encodeURIComponent(token)}`, {
                     method: 'DELETE',
                     headers: { 'x-admin-token': token }
                 });
@@ -179,7 +257,7 @@
                 if (result.success) {
                     fetchMessages();
                 } else {
-                    alert('删除失败');
+                    alert('删除失败：' + (result.error || '权限不足'));
                 }
             } catch (err) {
                 alert('网络请求失败');
@@ -190,9 +268,6 @@
             if (!str) return '';
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         }
-
-        // 页面打开自动加载数据
-        fetchMessages();
     </script>
 </body>
 </html>
