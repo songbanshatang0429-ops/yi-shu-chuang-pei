@@ -6,6 +6,24 @@
     <title>易数创培云科技 | 产教融合 · 数字内容生产服务商</title>
     <link rel="stylesheet" href="css/style.css?v=3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 标杆合作案例响应式网格：电脑端 2 列，手机端自动变 1 列 */
+        .cases-responsive-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        /* 手机端屏幕 (小于 768px) 自动切换为单列，防止挤压 */
+        @media (max-width: 768px) {
+            .cases-responsive-grid {
+                grid-template-columns: 1fr !important;
+                gap: 16px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- 毛玻璃顶部导航栏 -->
@@ -217,15 +235,14 @@
         </div>
     </section>
 
-    <!-- 标杆合作案例（已强制设置 2x2 标准四宫格布局） -->
+    <!-- 标杆合作案例（支持响应式布局） -->
     <section id="cases" class="cases-section">
         <div class="section-title">
             <h2>标杆合作案例</h2>
             <p>实战验证专业实力，联合企业与高校共建产教融合生态</p>
         </div>
 
-        <!-- 这里强制设置了 2列 网格布局 -->
-        <div class="cases-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 960px; margin: 0 auto; gap: 24px;">
+        <div class="cases-responsive-grid">
             <!-- 1. 网易有道 -->
             <div class="case-card">
                 <div class="case-badge">战略合作</div>
@@ -253,7 +270,7 @@
 
             <!-- 3. 广州华夏职业学院基地 -->
             <div class="case-card">
-                <div class="case-badge">高校合作</div>
+                <div class="case-badge">基地合作</div>
                 <h3>广州华夏职业学院基地</h3>
                 <p class="case-desc">已落实的产教融合基地，全面负责真实产业项目的承接与标准化落地，为公司与合作伙伴提供持续、稳定且优秀的实战人力储备。</p>
                 <div class="case-tags">
