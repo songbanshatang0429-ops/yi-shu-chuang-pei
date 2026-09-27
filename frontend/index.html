@@ -16,11 +16,13 @@
         </div>
         <div class="nav-links">
             <a href="index.html#hero">首页</a>
-            <a href="about.html">关于我们</a>
-            <a href="index.html#services">业务方向</a>
-            <a href="index.html#advantages">核心优势</a>
-            <a href="index.html#cases">合作案例</a>
-            <a href="index.html#contact" class="btn-cooperate">合作对接</a>
+            <!-- 已修正：黄色框改回 产教融合 -->
+            <a href="#about">产教融合</a>
+            <a href="#services">业务方向</a>
+            <a href="#advantages">核心优势</a>
+            <a href="#cases">合作案例</a>
+            <!-- 已修正：蓝色框右上角按钮改为 关于我们 -->
+            <a href="about.html" class="btn-cooperate">关于我们</a>
         </div>
     </nav>
 
@@ -34,7 +36,6 @@
             <h1>易数创培云科技</h1>
             <p>让产业项目走进校园 | 链接头部企业真实需求与高校实战人才，构建“企业-平台-高校-学生”的高效闭环生态</p>
             <div class="hero-buttons">
-                <!-- 已修改：文案改为“关于我们”，链接跳转至 about.html -->
                 <a href="about.html" class="btn-primary">关于我们</a>
                 <a href="#services" class="btn-secondary">探索业务方向</a>
             </div>
@@ -75,14 +76,13 @@
         </div>
     </section>
 
-    <!-- 核心业务方向（大标题 + 二级菜单交互） -->
+    <!-- 核心业务方向 -->
     <section id="services" class="services-section">
         <div class="section-title">
             <h2>业务方向与服务体系</h2>
             <p>点击大类可切换主题，点击下方二级服务卡片可查看完整业务介绍与 SOP 流程说明</p>
         </div>
 
-        <!-- 一级大类切换 Tab -->
         <div class="biz-tabs">
             <button class="biz-tab-btn active" data-target="tab-video">
                 <i class="fa-solid fa-video"></i> 视频与录制
@@ -92,7 +92,6 @@
             </button>
         </div>
 
-        <!-- Tab 1: 视频与录制二级菜单面板 -->
         <div id="tab-video" class="biz-panel active">
             <div class="sub-service-grid">
                 <div class="sub-service-card" onclick="openDetailModal('video-1')">
@@ -133,7 +132,6 @@
             </div>
         </div>
 
-        <!-- Tab 2: AI 与设计二级菜单面板 -->
         <div id="tab-ai" class="biz-panel">
             <div class="sub-service-grid">
                 <div class="sub-service-card" onclick="openDetailModal('ai-1')">
@@ -187,7 +185,7 @@
         </div>
     </section>
 
-    <!-- 为什么选择我们（核心优势） -->
+    <!-- 核心优势 -->
     <section id="advantages" class="advantages-section">
         <div class="section-title">
             <h2>为什么选择我们</h2>
@@ -221,7 +219,7 @@
         </div>
     </section>
 
-    <!-- 标杆合作案例 -->
+    <!-- 合作案例 -->
     <section id="cases" class="cases-section">
         <div class="section-title">
             <h2>标杆合作案例</h2>
@@ -254,14 +252,13 @@
         </div>
     </section>
 
-    <!-- 合作对接与联系方式 -->
+    <!-- 联系方式 -->
     <section id="contact" class="contact-section">
         <div class="contact-container">
             <div class="contact-info-side">
                 <h2>期待您的加入与合作！</h2>
                 <p>我们期待与您一起。</p>
                 <div class="direct-contact-box">
-                    <!-- 项目负责人：王钒 -->
                     <div class="contact-person">
                         <i class="fa-solid fa-user-tie"></i>
                         <div>
@@ -274,7 +271,6 @@
                         <a href="tel:13038892693">13038892693</a>
                     </div>
 
-                    <!-- 备用联系人：林灿雄 -->
                     <div class="contact-person" style="margin-top: 15px;">
                         <i class="fa-solid fa-user-tie"></i>
                         <div>
@@ -320,13 +316,11 @@
         </div>
     </section>
 
-    <!-- 二级菜单详情弹窗 (Modal Container) -->
+    <!-- 弹窗 -->
     <div id="detailModal" class="modal-backdrop" onclick="closeDetailModal(event)">
         <div class="modal-content">
             <button class="modal-close-btn" onclick="closeDetailModalDirect()"><i class="fa-solid fa-xmark"></i></button>
-            <div id="modalBody">
-                <!-- 由 JS 动态注入二级详情内容 -->
-            </div>
+            <div id="modalBody"></div>
         </div>
     </div>
 

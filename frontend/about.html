@@ -6,6 +6,22 @@
     <title>关于我们 | 易数创培云科技</title>
     <link rel="stylesheet" href="css/style.css?v=3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 强制 2x2 四宫格对称布局 */
+        .biz-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .biz-grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- 毛玻璃顶部导航栏 -->
@@ -16,16 +32,16 @@
         </div>
         <div class="nav-links">
             <a href="index.html#hero">首页</a>
-            <a href="about.html" class="active" style="color: var(--primary-color, #ff4757);">关于我们</a>
+            <a href="index.html#about">产教融合</a>
             <a href="index.html#services">业务方向</a>
             <a href="index.html#advantages">核心优势</a>
             <a href="index.html#cases">合作案例</a>
-            <a href="index.html#contact" class="btn-cooperate">合作对接</a>
+            <a href="about.html" class="btn-cooperate" style="background: var(--primary-color, #ff4757);">关于我们</a>
         </div>
     </nav>
 
     <!-- 关于我们 Banner 头部区 -->
-    <section class="hero-section" style="min-height: 45vh; padding-top: 130px; padding-bottom: 40px;">
+    <section class="hero-section" style="min-height: 42vh; padding-top: 130px; padding-bottom: 30px;">
         <div class="hero-bg-glow"></div>
         <div class="hero-content">
             <div class="hero-badge">
@@ -38,46 +54,46 @@
         </div>
     </section>
 
-    <!-- 四大核心业务板块 -->
-    <section class="about-section" style="padding-top: 50px;">
+    <!-- 四大核心业务板块（重构为标准四宫格） -->
+    <section class="about-section" style="padding-top: 40px; padding-bottom: 70px;">
         <div class="about-container">
             <div class="section-title">
                 <h2>核心业务领域</h2>
                 <p>聚焦人工智能应用、数字创意与产教融合，构建高效平稳的服务闭环</p>
             </div>
 
-            <div class="advantages-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
-                <!-- 1. 产教融合 -->
-                <div class="adv-card">
-                    <div class="adv-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <h3>01. 产教融合</h3>
-                    <p>专注于产教融合协同育人，精准对接头部企业真实业务需求，提供人才筛选、实战训练、SOP标准拆解与全流程产教融合服务。</p>
+            <!-- 标准 2x2 四宫格区域 -->
+            <div class="biz-grid-4">
+                <!-- 01. 产教融合 -->
+                <div class="adv-card" style="text-align: left; padding: 30px;">
+                    <div class="adv-icon" style="margin: 0 0 15px 0;"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h3 style="margin-bottom: 10px;">01. 产教融合</h3>
+                    <p style="margin: 0; line-height: 1.6; color: #aaa;">专注于产教融合协同育人，精准对接头部企业真实业务需求，提供人才筛选、实战训练、SOP标准拆解与全流程产教融合服务。</p>
                 </div>
 
-                <!-- 2. 文化出海—海外数字营销 -->
-                <div class="adv-card">
-                    <div class="adv-icon"><i class="fa-solid fa-earth-americas"></i></div>
-                    <h3>02. 文化出海 — 海外数字营销</h3>
-                    <p>助力本土优质内容与品牌走向海外，提供数字广告制作、跨国文化交流、海外全媒体数字营销与精准推广服务。</p>
+                <!-- 02. 文化出海—海外数字营销 -->
+                <div class="adv-card" style="text-align: left; padding: 30px;">
+                    <div class="adv-icon" style="margin: 0 0 15px 0;"><i class="fa-solid fa-earth-americas"></i></div>
+                    <h3 style="margin-bottom: 10px;">02. 文化出海 — 海外数字营销</h3>
+                    <p style="margin: 0; line-height: 1.6; color: #aaa;">助力本土优质内容与品牌走向海外，提供数字广告制作、跨国文化交流、海外全媒体数字营销与精准推广服务。</p>
                 </div>
 
-                <!-- 3. AI解说漫项目 -->
-                <div class="adv-card">
-                    <div class="adv-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                    <h3>03. AI解说漫项目</h3>
-                    <p>结合前沿人工智能技术与数字创意，打造AI漫画解说、智能漫剧生成、自动化视频剪辑与全网内容分发服务。</p>
+                <!-- 03. AI解说漫项目 -->
+                <div class="adv-card" style="text-align: left; padding: 30px;">
+                    <div class="adv-icon" style="margin: 0 0 15px 0;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <h3 style="margin-bottom: 10px;">03. AI解说漫项目</h3>
+                    <p style="margin: 0; line-height: 1.6; color: #aaa;">结合前沿人工智能技术与数字创意，打造AI漫画解说、智能漫剧生成、自动化视频剪辑与全网内容分发服务。</p>
                 </div>
 
-                <!-- 4. 数据标注与处理 -->
-                <div class="adv-card">
-                    <div class="adv-icon"><i class="fa-solid fa-database"></i></div>
-                    <h3>04. 数据标注与处理</h3>
-                    <p>为人工智能大模型与算法训练提供高质量数据标注、数据清洗、数据采集与全流程数据处理服务。</p>
+                <!-- 04. 数据标注与处理 -->
+                <div class="adv-card" style="text-align: left; padding: 30px;">
+                    <div class="adv-icon" style="margin: 0 0 15px 0;"><i class="fa-solid fa-database"></i></div>
+                    <h3 style="margin-bottom: 10px;">04. 数据标注与处理</h3>
+                    <p style="margin: 0; line-height: 1.6; color: #aaa;">为人工智能大模型与算法训练提供高质量数据标注、数据清洗、数据采集与全流程数据处理服务。</p>
                 </div>
             </div>
 
-            <!-- 底部引导按钮 -->
-            <div style="text-align: center; margin-top: 60px;">
+            <div style="text-align: center; margin-top: 50px;">
                 <a href="index.html#contact" class="btn-primary" style="padding: 12px 36px; text-decoration: none; display: inline-block;">联系我们 / 业务咨询</a>
             </div>
         </div>
