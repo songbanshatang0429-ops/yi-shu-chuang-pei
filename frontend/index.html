@@ -217,14 +217,15 @@
         </div>
     </section>
 
-    <!-- 标杆合作案例（包含4项：网易有道、二向箔科技、广州华夏职业学院基地、广东外语外贸大学南国商学院） -->
+    <!-- 标杆合作案例（已强制设置 2x2 标准四宫格布局） -->
     <section id="cases" class="cases-section">
         <div class="section-title">
             <h2>标杆合作案例</h2>
             <p>实战验证专业实力，联合企业与高校共建产教融合生态</p>
         </div>
 
-        <div class="cases-grid">
+        <!-- 这里强制设置了 2列 网格布局 -->
+        <div class="cases-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 960px; margin: 0 auto; gap: 24px;">
             <!-- 1. 网易有道 -->
             <div class="case-card">
                 <div class="case-badge">战略合作</div>
