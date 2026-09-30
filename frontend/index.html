@@ -30,8 +30,17 @@
             white-space: nowrap;
         }
 
-        /* 核心业务卡片网格：调整为标准 2x2 四宫格，左右完全对称 */
-        .sub-service-grid {
+        /* 视频与录制（3个卡片）：横向一字排开 3 列 */
+        .sub-service-grid.grid-3 {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 24px !important;
+            max-width: 1100px !important;
+            margin: 0 auto !important;
+        }
+
+        /* AI与设计（4个卡片）：标准 2x2 四宫格 */
+        .sub-service-grid.grid-4 {
             display: grid !important;
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 24px !important;
@@ -50,7 +59,8 @@
 
         /* 手机端屏幕 (小于 768px) 自动切换为单列 */
         @media (max-width: 768px) {
-            .sub-service-grid,
+            .sub-service-grid.grid-3,
+            .sub-service-grid.grid-4,
             .cases-responsive-grid {
                 grid-template-columns: 1fr !important;
                 gap: 16px;
@@ -143,8 +153,9 @@
             </button>
         </div>
 
+        <!-- 视频与录制：3个卡片平铺一排 -->
         <div id="tab-video" class="biz-panel active">
-            <div class="sub-service-grid">
+            <div class="sub-service-grid grid-3">
                 <div class="sub-service-card" onclick="openDetailModal('video-1')">
                     <div class="sub-card-header">
                         <span class="sub-num">01</span>
@@ -183,8 +194,9 @@
             </div>
         </div>
 
+        <!-- AI与设计：4个卡片 2x2 四宫格 -->
         <div id="tab-ai" class="biz-panel">
-            <div class="sub-service-grid">
+            <div class="sub-service-grid grid-4">
                 <div class="sub-service-card" onclick="openDetailModal('ai-1')">
                     <div class="sub-card-header">
                         <span class="sub-num">01</span>
