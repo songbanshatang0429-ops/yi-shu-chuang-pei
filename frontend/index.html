@@ -9,23 +9,24 @@
     <meta name="keywords" content="易数创培,易数创培云科技,产教融合,数字内容生产,网易有道产教融合,AI短剧制作,海外视频剪辑,数据标注">
     <meta name="description" content="易数创培云科技专注于产教融合领域的数字内容生产与服务，连接企业真实项目与高校人才，提供海外视频制作、AI短剧生成、数据标注与平面设计服务。">
 
-    <link rel="stylesheet" href="css/style.css?v=3">
+    <link rel="stylesheet" href="css/style.css?v=4">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Logo 与文字样式调整：图标适度放大，对齐整齐 */
+        /* Logo 与文字样式调整：Logo 强制显著放大 */
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         .logo-img {
-            height: 38px; /* Logo 稍微放大 */
-            width: auto;
+            height: 52px !important; /* 强制放大 Logo */
+            max-height: 52px !important;
+            width: auto !important;
             object-fit: contain;
         }
         .logo-text {
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.3rem;
+            font-weight: 700;
             white-space: nowrap;
         }
 
@@ -43,6 +44,9 @@
             .cases-responsive-grid {
                 grid-template-columns: 1fr !important;
                 gap: 16px;
+            }
+            .logo-img {
+                height: 40px !important; /* 手机端适当缩放，避免挤压导航栏 */
             }
         }
     </style>
