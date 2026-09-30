@@ -30,6 +30,15 @@
             white-space: nowrap;
         }
 
+        /* 核心业务卡片网格：调整为标准 2x2 四宫格，左右完全对称 */
+        .sub-service-grid {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 24px !important;
+            max-width: 960px !important;
+            margin: 0 auto !important;
+        }
+
         /* 标杆合作案例响应式网格：电脑端 2 列，手机端自动变 1 列 */
         .cases-responsive-grid {
             display: grid;
@@ -41,6 +50,7 @@
 
         /* 手机端屏幕 (小于 768px) 自动切换为单列 */
         @media (max-width: 768px) {
+            .sub-service-grid,
             .cases-responsive-grid {
                 grid-template-columns: 1fr !important;
                 gap: 16px;
