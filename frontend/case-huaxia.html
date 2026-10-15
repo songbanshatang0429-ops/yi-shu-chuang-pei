@@ -8,7 +8,7 @@
     <meta name="keywords" content="广州华夏职业学院,产教融合实训基地,具身标注,3D点云标注,MuMu模拟器宣发,三国杀生图,易数创培云科技">
     <meta name="description" content="广州华夏职业学院产教融合实训基地，承接AI模型训练数据、具身标注、3D标注、MuMu模拟器海报及海外短视频等真实商业项目。">
 
-    <link rel="stylesheet" href="css/style.css?v=8">
+    <link rel="stylesheet" href="css/style.css?v=9">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -82,8 +82,12 @@
             margin: 0;
             font-weight: 700;
         }
+
+        /* 关键：强制解除绝对定位，变为流式布局 */
+        .case-hero .case-badge,
         .case-badge {
-            display: inline-flex;
+            position: static !important;
+            display: inline-flex !important;
             align-items: center;
             gap: 8px;
             background: rgba(255, 59, 48, 0.15);
@@ -96,6 +100,7 @@
             margin: 0;
             white-space: nowrap;
         }
+
         .case-hero p {
             font-size: 1.05rem;
             color: #c9d1d9;
@@ -218,7 +223,7 @@
             color: #fff;
         }
 
-        /* 实战展示区：限制宽度并居中，防止模糊 */
+        /* 实战展示区：控制大小防拉伸 */
         .showcase-block {
             background: #141720;
             border: 1px solid #252b3b;
@@ -339,6 +344,7 @@
             color: #ff4d4f;
         }
 
+        /* 手机端彻底解决重叠：徽标放在标题上方，垂直流式排列 */
         @media (max-width: 768px) {
             .case-detail-container {
                 padding: 85px 16px 40px;
@@ -347,12 +353,21 @@
                 padding: 24px;
             }
             .case-hero-header {
-                flex-direction: column;
+                display: flex;
+                flex-direction: column-reverse; /* 关键：手机端徽标在上，标题在下 */
                 align-items: flex-start;
                 gap: 12px;
             }
             .case-hero-header h1 {
-                font-size: 1.6rem;
+                font-size: 1.55rem;
+                line-height: 1.35;
+            }
+            .case-hero .case-badge,
+            .case-badge {
+                position: static !important;
+                white-space: normal !important;
+                font-size: 0.8rem !important;
+                line-height: 1.4;
             }
             .value-grid,
             .matrix-grid,

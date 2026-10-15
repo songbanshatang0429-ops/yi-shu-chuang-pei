@@ -8,7 +8,7 @@
     <meta name="keywords" content="南国商学院,文化出海,海外数字营销,微专业,国际短剧,AI影视,易数创培云科技">
     <meta name="description" content="广东外语外贸大学南国商学院产教融合实训基地，校企共建文化出海—海外数字营销微专业，打造专业共建、基地共营、就业直通的实战育人生态。">
 
-    <link rel="stylesheet" href="css/style.css?v=8">
+    <link rel="stylesheet" href="css/style.css?v=9">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -68,8 +68,26 @@
             margin-bottom: 40px;
             position: relative;
         }
+        .case-hero-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .case-hero-header h1 {
+            font-size: 2.2rem;
+            color: #fff;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* 关键：强制解除绝对定位，变为流式布局 */
+        .case-hero .case-badge,
         .case-badge {
-            display: inline-flex;
+            position: static !important;
+            display: inline-flex !important;
             align-items: center;
             gap: 8px;
             background: rgba(255, 59, 48, 0.15);
@@ -79,14 +97,10 @@
             border-radius: 999px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin: 0;
+            white-space: nowrap;
         }
-        .case-hero h1 {
-            font-size: 2.2rem;
-            color: #fff;
-            margin: 0 0 16px 0;
-            font-weight: 700;
-        }
+
         .case-hero p {
             font-size: 1.05rem;
             color: #c9d1d9;
@@ -192,7 +206,7 @@
             line-height: 1.55;
         }
 
-        /* 成果图文展示区：限制宽度并居中，防止模糊 */
+        /* 成果图文展示区 */
         .showcase-block {
             background: #141720;
             border: 1px solid #252b3b;
@@ -283,6 +297,7 @@
             color: #ff4d4f;
         }
 
+        /* 手机端彻底解决重叠：徽标放在标题上方，垂直流式排列 */
         @media (max-width: 768px) {
             .case-detail-container {
                 padding: 85px 16px 40px;
@@ -290,8 +305,22 @@
             .case-hero {
                 padding: 24px;
             }
-            .case-hero h1 {
-                font-size: 1.6rem;
+            .case-hero-header {
+                display: flex;
+                flex-direction: column-reverse; /* 关键：手机端徽标在上，标题在下 */
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .case-hero-header h1 {
+                font-size: 1.55rem;
+                line-height: 1.35;
+            }
+            .case-hero .case-badge,
+            .case-badge {
+                position: static !important;
+                white-space: normal !important;
+                font-size: 0.8rem !important;
+                line-height: 1.4;
             }
             .value-grid,
             .projects-grid {
@@ -330,10 +359,12 @@
         </div>
 
         <div class="case-hero">
-            <div class="case-badge">
-                <i class="fa-solid fa-graduation-cap"></i> 产教融合实训基地 · 文化出海战略支撑
+            <div class="case-hero-header">
+                <h1>广东外语外贸大学南国商学院</h1>
+                <div class="case-badge">
+                    <i class="fa-solid fa-graduation-cap"></i> 产教融合实训基地 · 文化出海战略支撑
+                </div>
             </div>
-            <h1>广东外语外贸大学南国商学院</h1>
             <p>校企共建<strong>“文化出海—海外数字营销”微专业</strong>，依托涉外语言学科优势，同步开启生产性实训基地，构建“专业共建 · 基地共营 · 就业直通”的育人闭环。</p>
             <div class="case-tags-group">
                 <span>涉外语言学科优势</span>

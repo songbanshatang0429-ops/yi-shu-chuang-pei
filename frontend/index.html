@@ -9,7 +9,7 @@
     <meta name="keywords" content="易数创培,易数创培云科技,产教融合,数字内容生产,网易有道产教融合,AI短剧制作,海外视频剪辑,数据标注">
     <meta name="description" content="易数创培云科技专注于产教融合领域的数字内容生产与服务，连接企业真实项目与高校人才，提供海外视频制作、AI短剧生成、数据标注与平面设计服务。">
 
-    <link rel="stylesheet" href="css/style.css?v=7">
+    <link rel="stylesheet" href="css/style.css?v=8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Logo 与文字样式调整 */
@@ -48,13 +48,21 @@
             margin: 0 auto !important;
         }
 
-        /* 标杆合作案例响应式网格：电脑端 2 列，手机端自动变 1 列 */
+        /* 标杆合作案例响应式网格 */
         .cases-responsive-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 24px;
             max-width: 960px;
             margin: 0 auto;
+        }
+
+        /* 解决案例卡片标题与右上角“实训基地”角标重叠 */
+        .case-card {
+            position: relative;
+        }
+        .case-card h3 {
+            padding-right: 85px; /* 给右上角角标预留安全距离，绝不重叠 */
         }
 
         /* 案例详情跳转按钮样式 */
@@ -103,7 +111,7 @@
             color: #ff4d4f;
         }
 
-        /* 手机端屏幕 (小于 768px) 自动切换为单列 */
+        /* 手机端屏幕 (小于 768px) 适配 */
         @media (max-width: 768px) {
             .sub-service-grid.grid-3,
             .sub-service-grid.grid-4,
@@ -113,6 +121,11 @@
             }
             .logo-img {
                 height: 40px !important;
+            }
+            .case-card h3 {
+                padding-right: 80px;
+                font-size: 1.2rem;
+                line-height: 1.4;
             }
             .footer-contact {
                 flex-direction: column;
