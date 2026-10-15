@@ -57,6 +57,30 @@
             margin: 0 auto;
         }
 
+        /* 页脚官方联系信息样式 */
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 28px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #ccc;
+            flex-wrap: wrap;
+        }
+        .footer-contact a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .footer-contact a:hover {
+            color: #ff3b30;
+        }
+        .footer-contact i {
+            margin-right: 6px;
+            color: #ff4d4f;
+        }
+
         /* 手机端屏幕 (小于 768px) 自动切换为单列 */
         @media (max-width: 768px) {
             .sub-service-grid.grid-3,
@@ -67,6 +91,10 @@
             }
             .logo-img {
                 height: 40px !important;
+            }
+            .footer-contact {
+                flex-direction: column;
+                gap: 8px;
             }
         }
     </style>
@@ -316,70 +344,6 @@
         </div>
     </section>
 
-    <!-- 联系方式 -->
-    <section id="contact" class="contact-section">
-        <div class="contact-container">
-            <div class="contact-info-side">
-                <h2>期待您的加入与合作！</h2>
-                <p>我们期待与您一起。</p>
-                <div class="direct-contact-box">
-                    <div class="contact-person">
-                        <i class="fa-solid fa-user-tie"></i>
-                        <div>
-                            <strong>项目联系人：王钒</strong>
-                            <p>业务咨询 / 产教融合合作 / 项目外包对接</p>
-                        </div>
-                    </div>
-                    <div class="contact-phone">
-                        <i class="fa-solid fa-phone-volume"></i>
-                        <a href="tel:13038892693">13038892693</a>
-                    </div>
-
-                    <div class="contact-person" style="margin-top: 15px;">
-                        <i class="fa-solid fa-user-tie"></i>
-                        <div>
-                            <strong>项目联系人：林灿雄</strong>
-                            <p>业务咨询 / 项目对接</p>
-                        </div>
-                    </div>
-                    <div class="contact-phone">
-                        <i class="fa-solid fa-phone-volume"></i>
-                        <a href="tel:13790802180">13790802180</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="contact-form-side">
-                <form id="contactForm" class="contact-form">
-                    <h3>提交合作需求</h3>
-                    <div class="form-group">
-                        <label for="cusName"><i class="fa-solid fa-user"></i> 您的称呼 / 公司名称 <span class="required">*</span></label>
-                        <input type="text" id="cusName" placeholder="请输入您的姓名或公司名称" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cusPhone"><i class="fa-solid fa-phone"></i> 联系电话 / 邮箱 <span class="required">*</span></label>
-                        <input type="tel" id="cusPhone" placeholder="请输入您的电话号码或邮箱地址" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cusDemand"><i class="fa-solid fa-comment-dots"></i> 需求描述</label>
-                        <textarea id="cusDemand" rows="4" placeholder="请简单描述您的业务需求（如：海外视频剪辑、AI设计、数据标注等）..."></textarea>
-                        
-                        <div style="margin-top: 12px; text-align: left;">
-                            <label for="attachmentInput" style="font-size: 0.85rem; color: #aaa; display: block; margin-bottom: 6px;">
-                                📎 上传需求附件（选填，支持 Word/Excel/PPT/PDF，20MB 以内）：
-                            </label>
-                            <input type="file" id="attachmentInput" accept=".doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.zip,.rar" style="font-size: 0.85rem; color: #ddd; background: #222; padding: 6px 10px; border-radius: 4px; border: 1px solid #444; width: 100%;">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-submit">
-                        <span>提交对接申请</span>
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
     <!-- 弹窗 -->
     <div id="detailModal" class="modal-backdrop" onclick="closeDetailModal(event)">
         <div class="modal-content">
@@ -388,8 +352,12 @@
         </div>
     </div>
 
-    <!-- 页脚 -->
+    <!-- 页脚：展示官方电话、邮箱与版权信息 -->
     <footer class="footer">
+        <div class="footer-contact">
+            <span><i class="fa-solid fa-phone"></i>公司电话：<a href="tel:13038892693">13038892693</a></span>
+            <span><i class="fa-solid fa-envelope"></i>邮箱：<a href="mailto:yishuchuangpei2026@163.com">yishuchuangpei2026@163.com</a></span>
+        </div>
         <p>&copy; 2026 易数创培云科技（广州）有限公司 版权所有 | <a href="admin.html" class="admin-link" target="_blank">管理后台</a></p>
     </footer>
 
