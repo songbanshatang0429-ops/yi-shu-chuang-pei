@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>广州华夏职业学院基地 | 易数创培云科技</title>
+
+    <meta name="keywords" content="广州华夏职业学院,产教融合实训基地,具身标注,3D点云标注,MuMu模拟器宣发,三国杀生图,易数创培云科技">
+    <meta name="description" content="广州华夏职业学院产教融合实训基地，承接AI模型训练数据、具身标注、3D标注、MuMu模拟器海报及海外短视频等真实商业项目。">
+
+    <link rel="stylesheet" href="css/style.css?v=6">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0b0d12;
+            color: #e5e7eb;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .case-detail-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 100px 24px 60px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-img {
+            height: 52px !important;
+            max-height: 52px !important;
+            width: auto !important;
+            object-fit: contain;
+        }
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .breadcrumb {
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            color: #8b949e;
+        }
+        .breadcrumb a {
+            color: #8b949e;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover {
+            color: #ff3b30;
+        }
+        .breadcrumb span {
+            margin: 0 8px;
+        }
+
+        .case-hero {
+            background: linear-gradient(180deg, rgba(255, 59, 48, 0.08) 0%, rgba(20, 24, 33, 0.6) 100%);
+            border: 1px solid rgba(255, 59, 48, 0.25);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .case-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 59, 48, 0.15);
+            color: #ff4d4f;
+            border: 1px solid rgba(255, 59, 48, 0.35);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .case-hero h1 {
+            font-size: 2.2rem;
+            color: #fff;
+            margin: 0 0 16px 0;
+            font-weight: 700;
+        }
+        .case-hero p {
+            font-size: 1.1rem;
+            color: #c9d1d9;
+            max-width: 900px;
+            margin: 0 0 24px 0;
+        }
+        .case-tags-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .case-tags-group span {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+        }
+
+        .section-header {
+            margin: 48px 0 24px;
+            border-left: 4px solid #ff3b30;
+            padding-left: 14px;
+        }
+        .section-header h2 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 0 0 6px 0;
+        }
+        .section-header p {
+            font-size: 0.95rem;
+            color: #8b949e;
+            margin: 0;
+        }
+
+        /* 运作机制 */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .value-card {
+            background: #141720;
+            border: 1px solid #252b3b;
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .value-card:hover {
+            border-color: rgba(255, 59, 48, 0.5);
+        }
+        .value-icon {
+            font-size: 1.8rem;
+            color: #ff4d4f;
+            margin-bottom: 12px;
+        }
+        .value-card h3 {
+            font-size: 1.2rem;
+            color: #fff;
+            margin: 0 0 10px 0;
+        }
+        .value-card p {
+            font-size: 0.92rem;
+            color: #94a3b8;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* 承接业务四大矩阵 (2x2) */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .matrix-card {
+            background: #141720;
+            border: 1px solid #252b3b;
+            border-radius: 14px;
+            padding: 28px;
+            transition: transform 0.2s;
+        }
+        .matrix-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 59, 48, 0.4);
+        }
+        .matrix-tag {
+            font-size: 0.8rem;
+            color: #ff4d4f;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .matrix-card h3 {
+            font-size: 1.3rem;
+            color: #fff;
+            margin: 0 0 14px 0;
+        }
+        .matrix-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .matrix-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            font-size: 0.92rem;
+            color: #cbd5e1;
+            line-height: 1.55;
+        }
+        .matrix-list li::before {
+            content: "•";
+            position: absolute;
+            left: 6px;
+            color: #ff4d4f;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+        .matrix-list li strong {
+            color: #fff;
+        }
+
+        /* 履约体系横向条目 */
+        .assurance-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .assurance-item {
+            background: #11141c;
+            border: 1px solid #202636;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .assurance-item h4 {
+            color: #fff;
+            font-size: 1.05rem;
+            margin: 0 0 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .assurance-item h4 i {
+            color: #ff4d4f;
+        }
+        .assurance-item p {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        .page-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid #252b3b;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .btn-back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 8px;
+            background: #1e2433;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .btn-back-home:hover {
+            background: #283044;
+        }
+        .btn-next-case {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 8px;
+            background: #ff3b30;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .btn-next-case:hover {
+            opacity: 0.9;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 28px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #ccc;
+            flex-wrap: wrap;
+        }
+        .footer-contact a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .footer-contact a:hover {
+            color: #ff3b30;
+        }
+        .footer-contact i {
+            margin-right: 6px;
+            color: #ff4d4f;
+        }
+
+        @media (max-width: 768px) {
+            .case-detail-container {
+                padding: 85px 16px 40px;
+            }
+            .case-hero {
+                padding: 24px;
+            }
+            .case-hero h1 {
+                font-size: 1.6rem;
+            }
+            .value-grid,
+            .matrix-grid,
+            .assurance-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .footer-contact {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-area">
+            <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+            <span class="logo-text">易数创培云科技</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html#hero">首页</a>
+            <a href="index.html#about">产教融合</a>
+            <a href="index.html#services">业务方向</a>
+            <a href="index.html#cases">合作案例</a>
+            <a href="about.html" class="btn-cooperate">关于我们</a>
+        </div>
+    </nav>
+
+    <div class="case-detail-container">
+        <!-- 面包屑 -->
+        <div class="breadcrumb">
+            <a href="index.html">首页</a>
+            <span>/</span>
+            <a href="index.html#cases">标杆合作案例</a>
+            <span>/</span>
+            <strong style="color: #fff;">广州华夏职业学院基地</strong>
+        </div>
+
+        <!-- 头部主视区 -->
+        <div class="case-hero">
+            <div class="case-badge">
+                <i class="fa-solid fa-server"></i> 产教融合实训基地 · 工业级数字内容交付阵地
+            </div>
+            <h1>广州华夏职业学院基地</h1>
+            <p>已落实的<strong>高标准产教融合实训基地</strong>，聚焦前沿 AI 模型训练与高精度视觉内容生产，承接具身标注、3D 点云处理、头部产品海报设计及海外短视频剪辑等真实商业项目，为产业合作伙伴提供持续、稳定且优秀的实战人力储备。</p>
+            <div class="case-tags-group">
+                <span>产教融合实训基地</span>
+                <span>具身智能数据标注</span>
+                <span>3D点云与白模</span>
+                <span>MuMu模拟器宣发全案</span>
+                <span>三国杀AI批量生图</span>
+                <span>工业级SOP品控</span>
+            </div>
+        </div>
+
+        <!-- 运作机制 -->
+        <div class="section-header">
+            <h2>基地合作机制与运作模式</h2>
+            <p>以真实产业项目为纽带，打造标准化、流水线式的实战交付体系</p>
+        </div>
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-icon"><i class="fa-solid fa-desktop"></i></div>
+                <h3>专业与项目对齐</h3>
+                <p>依托校内实训专属机房与物理工区，将一线互联网企业的研发需求、设计规范与数据流水线无缝引入校园实战课堂。</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fa-solid fa-gears"></i></div>
+                <h3>生产性实训教学</h3>
+                <p>学生在校企双导师指导下直接承接真实商业工单，遵循工业级作业标准，真正做到“实训即生产，作业即商用”。</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fa-solid fa-user-check"></i></div>
+                <h3>标准化人才储备</h3>
+                <p>通过严格的岗前实操培训与考核，持续筛选并沉淀纪律严明、熟练度高且具备规模化履约能力的技术型实战人才。</p>
+            </div>
+        </div>
+
+        <!-- 承接四大核心业务矩阵 -->
+        <div class="section-header">
+            <h2>基地承接核心业务矩阵</h2>
+            <p>涵盖前沿 AI 数据标注、主流产品视觉宣发及 AIGC 创意设计的多元化交付体系</p>
+        </div>
+        <div class="matrix-grid">
+            <!-- 矩阵一 -->
+            <div class="matrix-card">
+                <span class="matrix-tag">前沿 AI 训练底座</span>
+                <h3>高精数据标注与多模态数据</h3>
+                <ul class="matrix-list">
+                    <li><strong>具身智能标注（Embodied AI）</strong>：针对前沿机器人与空间智能模型，提供多维度轨迹抓取、接触意图与行为序列精细化标注。</li>
+                    <li><strong>3D 点云与场景打标</strong>：承接激光雷达 3D 点云框选、空间白模 Layout 拓扑对齐与三维几何姿态精准标注。</li>
+                    <li><strong>多模态模型训练数据</strong>：涵盖图文跨模态精准对齐、多语种语音端到端转写切片与语义清洗。</li>
+                </ul>
+            </div>
+
+            <!-- 矩阵二 -->
+            <div class="matrix-card">
+                <span class="matrix-tag">官方宣发视觉全案</span>
+                <h3>商业视觉设计与物料延展</h3>
+                <ul class="matrix-list">
+                    <li><strong>网易 MuMu 模拟器宣发全案</strong>：深度承接 MuMu 模拟器小红书/社媒官方图文笔记排版、版本更新高点击率海报设计。</li>
+                    <li><strong>全渠道多尺寸物料适配</strong>：严格对齐主流应用商店与流媒体广告尺寸规范，标准化批量输出高审美宣发套图。</li>
+                    <li><strong>品牌调性统一把控</strong>：从主视觉排版到字体细节，确保符合一线大厂企业级品牌视觉标准。</li>
+                </ul>
+            </div>
+
+            <!-- 矩阵三 -->
+            <div class="matrix-card">
+                <span class="matrix-tag">前沿 AIGC 资产</span>
+                <h3>AIGC 艺术创作与 IP 衍生</h3>
+                <ul class="matrix-list">
+                    <li><strong>《三国杀》等头部 IP AI 批量生图</strong>：在严格遵循原作美术风格与角色特征的前提下，实现卡牌、分镜及场景资产的 AI 批量高效生成与人工精修。</li>
+                    <li><strong>LoRA 风格模型微调配合</strong>：配合项目组微调特定画风，输出高一致性、可商用的美术级角色插画与宣传素材。</li>
+                </ul>
+            </div>
+
+            <!-- 矩阵四 -->
+            <div class="matrix-card">
+                <span class="matrix-tag">海外社媒视频交付</span>
+                <h3>海外多媒体视频后期流水线</h3>
+                <ul class="matrix-list">
+                    <li><strong>海外主流平台短视频精剪</strong>：面向 TikTok、YouTube 等平台，承接游戏精彩高光操作录制、节奏踩点混剪与宣传成片。</li>
+                    <li><strong>本地化视听包装</strong>：专业完成音效设计、动态字幕同步、多语种本地化适配，全面保障海外视频投放转化效果。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 履约体系保障 -->
+        <div class="section-header">
+            <h2>工业级交付与品控保障</h2>
+            <p>工位级 SOP 作业指引与双轨审核，确保交付结果 100% 达商业标准</p>
+        </div>
+        <div class="assurance-grid">
+            <div class="assurance-item">
+                <h4><i class="fa-solid fa-list-check"></i> 工位级 SOP 作业指引</h4>
+                <p>将复杂的制作与标注需求拆解为可量化执行的工位标准，即便大规模百人团队同时作业，也能确保输出高度一致。</p>
+            </div>
+            <div class="assurance-item">
+                <h4><i class="fa-solid fa-shield-halved"></i> 双轨品控初验终审制</h4>
+                <p>院校指导教师首轮抽检把关 + 公司资深项目主管最终复核交付，层层打磨，确保商用级合格率稳超 99%。</p>
+            </div>
+            <div class="assurance-item">
+                <h4><i class="fa-solid fa-users-gear"></i> 弹性规模化机房响应</h4>
+                <p>具备在 48 小时内快速组建 30-100 人专属实训工区的调度能力，灵活应对企业交付业务峰值与紧急节点。</p>
+            </div>
+        </div>
+
+        <!-- 底部导航与切换 -->
+        <div class="page-actions">
+            <a href="index.html#cases" class="btn-back-home"><i class="fa-solid fa-arrow-left"></i> 返回合作案例</a>
+            <a href="case-nanguo.html" class="btn-next-case">查看：广东外语外贸大学南国商学院基地 <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-contact">
+            <span><i class="fa-solid fa-phone"></i>公司电话：<a href="tel:13038892693">13038892693</a></span>
+            <span><i class="fa-solid fa-envelope"></i>邮箱：<a href="mailto:yishuchuangpei2026@163.com">yishuchuangpei2026@163.com</a></span>
+        </div>
+        <p>&copy; 2026 易数创培云科技（广州）有限公司 版权所有 | <a href="admin.html" class="admin-link" target="_blank">管理后台</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>广东外语外贸大学南国商学院基地 | 易数创培云科技</title>
+
+    <meta name="keywords" content="南国商学院,文化出海,海外数字营销,微专业,国际短剧,AI影视,易数创培云科技">
+    <meta name="description" content="广东外语外贸大学南国商学院产教融合实训基地，校企共建文化出海—海外数字营销微专业，打造专业共建、基地共营、就业直通的实战育人生态。">
+
+    <link rel="stylesheet" href="css/style.css?v=6">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 页面全局与通用主题 */
+        body {
+            background-color: #0b0d12;
+            color: #e5e7eb;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .case-detail-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 100px 24px 60px;
+        }
+
+        /* 顶部导航 */
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-img {
+            height: 52px !important;
+            max-height: 52px !important;
+            width: auto !important;
+            object-fit: contain;
+        }
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* 面包屑与返回 */
+        .breadcrumb {
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            color: #8b949e;
+        }
+        .breadcrumb a {
+            color: #8b949e;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover {
+            color: #ff3b30;
+        }
+        .breadcrumb span {
+            margin: 0 8px;
+        }
+
+        /* 头部主视区 */
+        .case-hero {
+            background: linear-gradient(180deg, rgba(255, 59, 48, 0.08) 0%, rgba(20, 24, 33, 0.6) 100%);
+            border: 1px solid rgba(255, 59, 48, 0.25);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .case-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 59, 48, 0.15);
+            color: #ff4d4f;
+            border: 1px solid rgba(255, 59, 48, 0.35);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .case-hero h1 {
+            font-size: 2.2rem;
+            color: #fff;
+            margin: 0 0 16px 0;
+            font-weight: 700;
+        }
+        .case-hero p {
+            font-size: 1.1rem;
+            color: #c9d1d9;
+            max-width: 900px;
+            margin: 0 0 24px 0;
+        }
+        .case-tags-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .case-tags-group span {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+        }
+
+        /* 模块标题 */
+        .section-header {
+            margin: 48px 0 24px;
+            border-left: 4px solid #ff3b30;
+            padding-left: 14px;
+        }
+        .section-header h2 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 0 0 6px 0;
+        }
+        .section-header p {
+            font-size: 0.95rem;
+            color: #8b949e;
+            margin: 0;
+        }
+
+        /* 合作模式三维卡片 */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .value-card {
+            background: #141720;
+            border: 1px solid #252b3b;
+            border-radius: 12px;
+            padding: 24px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .value-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 59, 48, 0.5);
+        }
+        .value-icon {
+            font-size: 1.8rem;
+            color: #ff4d4f;
+            margin-bottom: 12px;
+        }
+        .value-card h3 {
+            font-size: 1.2rem;
+            color: #fff;
+            margin: 0 0 10px 0;
+        }
+        .value-card p {
+            font-size: 0.92rem;
+            color: #94a3b8;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* 六大核心项目网格 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .project-item {
+            background: #141720;
+            border: 1px solid #252b3b;
+            border-radius: 12px;
+            padding: 22px;
+        }
+        .project-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .project-num {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #ff4d4f;
+        }
+        .project-item h4 {
+            font-size: 1.1rem;
+            color: #fff;
+            margin: 0 0 8px 0;
+        }
+        .project-item p {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        /* 成果图文展示区 */
+        .showcase-block {
+            background: #141720;
+            border: 1px solid #252b3b;
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 50px;
+        }
+        .showcase-img-wrap {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .showcase-img-wrap img {
+            width: 100%;
+            height: auto;
+            max-height: 520px;
+            object-fit: cover;
+            display: block;
+        }
+        .showcase-desc {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            text-align: center;
+            margin: 0;
+        }
+
+        /* 底部导航条与操作按钮 */
+        .page-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid #252b3b;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .btn-back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 8px;
+            background: #1e2433;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .btn-back-home:hover {
+            background: #283044;
+        }
+        .btn-next-case {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 8px;
+            background: #ff3b30;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .btn-next-case:hover {
+            opacity: 0.9;
+        }
+
+        /* 页脚联系方式 */
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 28px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #ccc;
+            flex-wrap: wrap;
+        }
+        .footer-contact a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .footer-contact a:hover {
+            color: #ff3b30;
+        }
+        .footer-contact i {
+            margin-right: 6px;
+            color: #ff4d4f;
+        }
+
+        /* 手机端响应式适配 */
+        @media (max-width: 768px) {
+            .case-detail-container {
+                padding: 85px 16px 40px;
+            }
+            .case-hero {
+                padding: 24px;
+            }
+            .case-hero h1 {
+                font-size: 1.6rem;
+            }
+            .value-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .footer-contact {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="logo-area">
+            <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+            <span class="logo-text">易数创培云科技</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html#hero">首页</a>
+            <a href="index.html#about">产教融合</a>
+            <a href="index.html#services">业务方向</a>
+            <a href="index.html#cases">合作案例</a>
+            <a href="about.html" class="btn-cooperate">关于我们</a>
+        </div>
+    </nav>
+
+    <div class="case-detail-container">
+        <!-- 面包屑 -->
+        <div class="breadcrumb">
+            <a href="index.html">首页</a>
+            <span>/</span>
+            <a href="index.html#cases">标杆合作案例</a>
+            <span>/</span>
+            <strong style="color: #fff;">广东外语外贸大学南国商学院基地</strong>
+        </div>
+
+        <!-- 头部主视区 -->
+        <div class="case-hero">
+            <div class="case-badge">
+                <i class="fa-solid fa-graduation-cap"></i> 产教融合实训基地 · 文化出海战略支撑
+            </div>
+            <h1>广东外语外贸大学南国商学院</h1>
+            <p>校企共建<strong>“文化出海—海外数字营销”微专业</strong>，依托学校商务英语与翻译学科优势，同步启动高标准生产性实训基地，构建“专业共建 · 基地共营 · 就业直通”的实战育人闭环。</p>
+            <div class="case-tags-group">
+                <span>涉外语言学科优势</span>
+                <span>微专业课程共建</span>
+                <span>生产性实训基地</span>
+                <span>六大海外项目工区</span>
+                <span>直通网易生态就业</span>
+            </div>
+        </div>
+
+        <!-- 合作模式核心价值 -->
+        <div class="section-header">
+            <h2>合作模式核心价值</h2>
+            <p>产教深度对接，打破理论壁垒，打通从课堂实训到产业交付的全链路</p>
+        </div>
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+                <h3>专业共建</h3>
+                <p>微专业课程体系全面与一线产业需求对齐，将海外社媒算法机制、AI 影视全流程工具及跨文化营销标准系统化融入教学，精准赋能商务英语、翻译、英语等专业学生。</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fa-solid fa-building-user"></i></div>
+                <h3>基地共营</h3>
+                <p>校企双主体共建生产性实训基地，直接引入一线头部企业商业级实战订单。由企业一线工程师与骨干导师常驻带教，让学生在真实商业工单中历练实操能力。</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fa-solid fa-route"></i></div>
+                <h3>就业直通</h3>
+                <p>构建无缝直达一线大厂的就业通道。在实战交付与综合考核中表现优异的学生团队与骨干，可获得企业官方实训认证，直接进入网易等生态合作体系高质量就业。</p>
+            </div>
+        </div>
+
+        <!-- 六大核心落地项目工区 -->
+        <div class="section-header">
+            <h2>六大产业项目实训工区</h2>
+            <p>覆盖短剧出海、AIGC 制作与跨境数字营销的多元交付矩阵</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-item">
+                <div class="project-item-header">
+                    <span class="project-num">01</span>
+                    <i class="fa-solid fa-film" style="color: #ff4d4f;"></i>
+                </div>
+                <h4>国际短剧孵化</h4>
+                <p>结合海外受众审美与短剧爆款节奏，深度参与海外短剧剧本本地化修润、分镜精剪、节奏把控及海外平台多渠道宣发。</p>
+            </div>
+            <div class="project-item">
+                <div class="project-item-header">
+                    <span class="project-num">02</span>
+                    <i class="fa-solid fa-wand-magic-sparkles" style="color: #ff4d4f;"></i>
+                </div>
+                <h4>AI 影视制作全流程</h4>
+                <p>依托前沿多模态大模型完成文生视频、AI 配音合成与高质量影视二创，打造低成本、高产能的智能影视生产线。</p>
+            </div>
+            <div class="project-item">
+                <div class="project-item-header">
+                    <span class="project-num">03</span>
+                    <i class="fa-solid fa-handshake" style="color: #ff4d4f;"></i>
+                </div>
+                <h4>海外 KOL 营销 BD</h4>
+                <p>发挥外语学科与跨文化商务谈判优势，直接对接 YouTube、TikTok 海外主流创作者，开展商务建联、排期洽谈与物料审核。</p>
+            </div>
+            <div class="project-item">
+                <div class="project-item-header">
+                    <span class="project-num">04</span>
+                    <i class="fa-solid fa-video" style="color: #ff4d4f;"></i>
+                </div>
+                <h4>海外 UGC 视频创作</h4>
+                <p>紧跟海外热点趋势与用户情绪，针对主流社交平台持续产出兼具本土化表达与高互动率的原创及混剪营销短视频。</p>
+            </div>
+            <div class="project-item">
+                <div class="project-item-header">
+                    <span class="project-num">05</span>
+                    <i class="fa-solid fa-user-plus" style="color: #ff4d4f;"></i>
+                </div>
+                <h4>海外 KOL 裂变拉新</h4>
+                <p>构建海外创作者拓展体系，主导多区域网络达人邀约入驻、裂变拉新机制与达人日常运营维护，形成规模化创作者资产。</p>
+            </div>
+            <div class="project-item">
+                <div class="project-item-header">
+                    <span class="project-num">06</span>
+                    <i class="fa-solid fa-chart-line" style="color: #ff4d4f;"></i>
+                </div>
+                <h4>海外直播与舆情分析</h4>
+                <p>多语种实时追踪海外主流平台直播动态与评论区互动，深度分析受众反馈与竞品舆情，为出海业务决策提供数据支撑。</p>
+            </div>
+        </div>
+
+        <!-- 基地风采与实训结营展示 -->
+        <div class="section-header">
+            <h2>实训成果与基地风采</h2>
+            <p>真实项目实战考核，见证学生从校园到产业工匠的蜕变</p>
+        </div>
+        <div class="showcase-block">
+            <div class="showcase-img-wrap">
+                <img src="nanguo-case.jpg" alt="广东外语外贸大学南国商学院产教融合实训基地师生结营成果展" onerror="this.src='https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&auto=format&fit=crop&q=80'">
+            </div>
+            <p class="showcase-desc">
+                <i class="fa-solid fa-camera"></i> <strong>实战成果交付现场</strong>：南国商学院生产性实训基地师生团队通过高强度商业级实战考核，全员达标并完成商业交付作品展
+            </p>
+        </div>
+
+        <!-- 底部导航与切换 -->
+        <div class="page-actions">
+            <a href="index.html#cases" class="btn-back-home"><i class="fa-solid fa-arrow-left"></i> 返回合作案例</a>
+            <a href="case-huaxia.html" class="btn-next-case">查看：广州华夏职业学院基地 <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-contact">
+            <span><i class="fa-solid fa-phone"></i>公司电话：<a href="tel:13038892693">13038892693</a></span>
+            <span><i class="fa-solid fa-envelope"></i>邮箱：<a href="mailto:yishuchuangpei2026@163.com">yishuchuangpei2026@163.com</a></span>
+        </div>
+        <p>&copy; 2026 易数创培云科技（广州）有限公司 版权所有 | <a href="admin.html" class="admin-link" target="_blank">管理后台</a></p>
+    </footer>
+</body>
+</html>

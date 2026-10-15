@@ -9,7 +9,7 @@
     <meta name="keywords" content="易数创培,易数创培云科技,产教融合,数字内容生产,网易有道产教融合,AI短剧制作,海外视频剪辑,数据标注">
     <meta name="description" content="易数创培云科技专注于产教融合领域的数字内容生产与服务，连接企业真实项目与高校人才，提供海外视频制作、AI短剧生成、数据标注与平面设计服务。">
 
-    <link rel="stylesheet" href="css/style.css?v=5">
+    <link rel="stylesheet" href="css/style.css?v=6">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Logo 与文字样式调整 */
@@ -55,6 +55,28 @@
             gap: 24px;
             max-width: 960px;
             margin: 0 auto;
+        }
+
+        /* 案例详情跳转按钮样式 */
+        .case-card-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 18px;
+            padding: 8px 16px;
+            background: rgba(255, 59, 48, 0.12);
+            color: #ff4d4f;
+            border: 1px solid rgba(255, 59, 48, 0.3);
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .case-card-link-btn:hover {
+            background: #ff3b30;
+            color: #fff;
+            transform: translateY(-2px);
         }
 
         /* 页脚官方联系信息样式 */
@@ -317,28 +339,33 @@
         <div class="cases-responsive-grid">
             <!-- 1. 广州华夏职业学院基地 -->
             <div class="case-card">
-                <div class="case-badge">基地合作</div>
+                <div class="case-badge">实训基地</div>
                 <h3>广州华夏职业学院基地</h3>
-                <p class="case-desc">已落实的产教融合基地，全面负责真实产业项目的承接与标准化落地，为公司与合作伙伴提供持续、稳定且优秀的实战人力储备。</p>
+                <p class="case-desc">已落实的产教融合实训基地，承接 AI 具身标注、3D点云、MuMu 模拟器宣发全案及三国杀 AI 生图等真实商业项目，具备稳定且优秀的实操人力。</p>
                 <div class="case-tags">
-                    <span>产教融合基地</span>
-                    <span>项目承接</span>
-                    <span>优秀人力储备</span>
+                    <span>具身/3D标注</span>
+                    <span>MuMu宣发海报</span>
+                    <span>三国杀生图</span>
+                    <span>实训工区</span>
+                </div>
+                <div>
+                    <a href="case-huaxia.html" class="case-card-link-btn">查看基地详情 <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
 
             <!-- 2. 广东外语外贸大学南国商学院 -->
             <div class="case-card">
-                <div class="case-badge">高校合作</div>
+                <div class="case-badge">实训基地</div>
                 <h3>广东外语外贸大学南国商学院</h3>
-                <p class="case-desc">聚焦出海与数字影视方向，主要负责国际短剧、AI影视制作、海外KOL营销BD、海外UGC视频创作、海外KOL拉新及海外直播舆情分析六大项目，是优质的人力资源储备库。</p>
+                <p class="case-desc">校企共建“文化出海—海外数字营销”微专业，聚焦国际短剧、AI 影视、海外 KOL 营销等六大实训项目，是高水准的涉外实战人才孵化阵地。</p>
                 <div class="case-tags">
+                    <span>微专业共建</span>
                     <span>国际短剧</span>
                     <span>AI影视制作</span>
-                    <span>海外KOL营销BD</span>
-                    <span>海外UGC视频创作</span>
-                    <span>海外KOL拉新</span>
-                    <span>海外直播舆情分析</span>
+                    <span>海外KOL营销</span>
+                </div>
+                <div>
+                    <a href="case-nanguo.html" class="case-card-link-btn">查看基地详情 <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -352,7 +379,7 @@
         </div>
     </div>
 
-    <!-- 页脚：展示官方电话、邮箱与版权信息 -->
+    <!-- 页脚 -->
     <footer class="footer">
         <div class="footer-contact">
             <span><i class="fa-solid fa-phone"></i>公司电话：<a href="tel:13038892693">13038892693</a></span>
