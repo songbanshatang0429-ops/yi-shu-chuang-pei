@@ -66,6 +66,22 @@
             border-radius: 16px;
             padding: 40px;
             margin-bottom: 40px;
+            position: relative;
+        }
+        /* 主视区头部左右对齐布局：左侧标题，右侧胶囊徽标 */
+        .case-hero-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .case-hero-header h1 {
+            font-size: 2.2rem;
+            color: #fff;
+            margin: 0;
+            font-weight: 700;
         }
         .case-badge {
             display: inline-flex;
@@ -78,13 +94,8 @@
             border-radius: 999px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 16px;
-        }
-        .case-hero h1 {
-            font-size: 2.2rem;
-            color: #fff;
-            margin: 0 0 16px 0;
-            font-weight: 700;
+            margin: 0;
+            white-space: nowrap;
         }
         .case-hero p {
             font-size: 1.1rem;
@@ -310,7 +321,12 @@
             .case-hero {
                 padding: 24px;
             }
-            .case-hero h1 {
+            .case-hero-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .case-hero-header h1 {
                 font-size: 1.6rem;
             }
             .value-grid,
@@ -353,10 +369,12 @@
 
         <!-- 头部主视区 -->
         <div class="case-hero">
-            <div class="case-badge">
-                <i class="fa-solid fa-server"></i> 产教融合实训基地 · 工业级数字内容交付阵地
+            <div class="case-hero-header">
+                <h1>广州华夏职业学院基地</h1>
+                <div class="case-badge">
+                    <i class="fa-solid fa-graduation-cap"></i> 产教融合实训基地 · 数字化战略基地
+                </div>
             </div>
-            <h1>广州华夏职业学院基地</h1>
             <p>已落实的<strong>高标准产教融合实训基地</strong>，聚焦前沿 AI 模型训练与高精度视觉内容生产，承接具身标注、3D 点云处理、头部产品海报设计及海外短视频剪辑等真实商业项目，为产业合作伙伴提供持续、稳定且优秀的实战人力储备。</p>
             <div class="case-tags-group">
                 <span>产教融合实训基地</span>
