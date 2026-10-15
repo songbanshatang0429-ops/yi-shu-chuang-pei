@@ -218,24 +218,27 @@
             color: #fff;
         }
 
+        /* 实战展示区：限制宽度并居中，防止模糊 */
         .showcase-block {
             background: #141720;
             border: 1px solid #252b3b;
             border-radius: 14px;
-            padding: 24px;
-            margin-bottom: 40px;
+            padding: 18px;
+            max-width: 640px;
+            margin: 0 auto 40px;
         }
         .showcase-img-wrap {
             width: 100%;
             border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #0d1017;
         }
         .showcase-img-wrap img {
             width: 100%;
             height: auto;
-            max-height: 480px;
+            max-height: 380px;
             object-fit: cover;
             display: block;
         }
